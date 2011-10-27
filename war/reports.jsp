@@ -21,7 +21,7 @@
 	<jsp:include page="topmenu.jsp"></jsp:include>
 	
 	<div id="content">
-		
+		Reports
 	</div>
 </body>
 </html>

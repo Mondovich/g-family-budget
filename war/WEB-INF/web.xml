@@ -7,15 +7,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 	<servlet>
         <servlet-name>Family</servlet-name>
-        <servlet-class>it.mondovich.FamilyServlet</servlet-class>
+        <servlet-class>it.mondovich.servlets.FamilyServlet</servlet-class>
     </servlet>
 	<servlet>
         <servlet-name>Bank Account</servlet-name>
-        <servlet-class>it.mondovich.BankAccountServlet</servlet-class>
+        <servlet-class>it.mondovich.servlets.BankAccountServlet</servlet-class>
     </servlet>
 	<servlet>
         <servlet-name>Reports</servlet-name>
-        <servlet-class>it.mondovich.ReportsServlet</servlet-class>
+        <servlet-class>it.mondovich.servlets.ReportsServlet</servlet-class>
     </servlet>
 	
     <servlet-mapping>

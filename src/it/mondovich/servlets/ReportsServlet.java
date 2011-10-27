@@ -1,4 +1,4 @@
-package it.mondovich;
+package it.mondovich.servlets;
 
 import java.io.IOException;
 
@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BankAccountServlet extends HttpServlet {
+public class ReportsServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("text/plain");
-		resp.getWriter().println("Bank Account");
+
+		resp.sendRedirect("reports.jsp");
 	}
 
 	@Override
