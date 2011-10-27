@@ -21,6 +21,8 @@ public class FamilyServlet extends HttpServlet {
 			throws ServletException, IOException {
 		resp.setContentType("text/plain");
 		
+//		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
 		EntityManager em = EMFactory.get().createEntityManager();
 		
 		String crea = req.getParameter("crea");
@@ -32,10 +34,12 @@ public class FamilyServlet extends HttpServlet {
 			person.setLastName(req.getParameter("lastname"));
 			
 			em.persist(person);
+//			datastore.put(person);
 		}
 		
 		List<Person> list = em.createQuery("select p from Person p").getResultList();
 		req.getSession().setAttribute("persons", list);
+		em.close();
 		
 		resp.sendRedirect("family.jsp");
 	}

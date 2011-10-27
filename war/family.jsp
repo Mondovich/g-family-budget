@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" style="" href="css/main.css">
+<link rel="stylesheet" href="css/main.css">
 <title>GFamilyBudget</title>
 </head>
 <body>
@@ -29,7 +29,9 @@
 		<% List<Person> list = (List<Person>) request.getSession().getAttribute("persons");
 		if (list != null){
 			for(Person person : list) {
-				response.getWriter().println(person.getFirstName() + " " + person.getLastName() + "<br />");
+		%>
+		<%= person.getFirstName() + " " + person.getLastName() + "<br />"%>
+		<%
 			}
 		}
 		%>

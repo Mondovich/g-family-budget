@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" style="" href="css/main.css">
+<link rel="stylesheet" href="css/main.css">
 <title>GFamilyBudget</title>
 </head>
 <body>
