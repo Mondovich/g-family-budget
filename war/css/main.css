@@ -21,25 +21,82 @@
 	text-decoration: none !important;
 }
 
-#topMenu  a:hover{
+#topMenu  a:hover {
 	background-color: darkgrey;
 	background-position: 0 -102px;
 	background-repeat: repeat-x;
 }
 
-#topMenu  a:selected{
+#topMenu  a:selected {
 	border-top: 1px solid red;
 }
 
 #content {
 	position: relative;
 	top: 30px;
+	padding: 10px;
+}
+
+#header {
+	position: relative; width : 100%;
+	border: 2px solid black;
+	width: 100%;
+}
+
+#header table {
+	width: 100%;
+}
+
+#header table th {
+	border: 1px solid grey;
+	background-color: #ddd;
+}
+
+a.ovalbutton {
+	background: transparent url('/images/oval-green-left.gif') no-repeat top
+		left;
+	display: block;
+	float: left;
+	font: normal 13px Tahoma; /* Change 13px as desired */
+	line-height: 16px;
+	/* This value + 4px + 4px (top and bottom padding of SPAN) must equal height of button background (default is 24px) */
+	height: 24px; /* Height of button background height */
+	padding-left: 11px; /* Width of left menu image */
+	text-decoration: none;
+}
+
+a:link.ovalbutton,a:visited.ovalbutton,a:active.ovalbutton {
+	color: #494949; /*button text color*/
+	font-weight: bold;
+}
+
+a.ovalbutton span {
+	background: transparent url('/images/oval-green-right.gif') no-repeat top
+		right;
+	display: block;
+	padding: 4px 11px 4px 0;
+	/*Set 11px below to match value of 'padding-left' value above*/
+}
+
+a.ovalbutton:hover { /* Hover state CSS */
+	background-position: bottom left;
+}
+
+a.ovalbutton:hover span { /* Hover state CSS */
+	background-position: bottom right;
+	color: black;
+}
+
+.buttonwrapper {
+	/* Container you can use to surround a CSS button to clear float */
+	overflow: hidden; /*See: http://www.quirksmode.org/css/clearing.html */
+	width: 100%;
 }
 
 .button {
 	float: left;
 	height: 30px;
-	padding: 0 10px 0 10px;	
+	padding: 0 10px 0 10px;
 	vertical-align: baseline;
 	text-align: -webkit-auto;
 }

@@ -8,6 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.16.custom.css">
+<link rel="javascript" href="js/jquery-1.6.4.js">
+<link rel="javascript" href="js/jquery-ui-1.8.16.custom.min.js">
 <title>GFamilyBudget</title>
 </head>
 <body>

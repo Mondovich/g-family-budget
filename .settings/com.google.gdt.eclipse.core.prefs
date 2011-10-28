@@ -1,0 +1,5 @@
+#Fri Oct 28 14:59:07 CEST 2011
+eclipse.preferences.version=1
+jarsExcludedFromWebInfLib=C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/commons-fileupload-1.2.2.jar|C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/commons-io-2.0.1.jar|C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/commons-logging-1.1.1.jar|C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/freemarker-2.3.16.jar|C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/ognl-3.0.1.jar|C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/spring-core-2.5.6.jar|C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/struts2-core-2.2.3.jar|C\:/Downloads/Programmazione/Java/Struts 2/struts-2.2.3/lib/xwork-core-2.2.3.jar
+warSrcDir=war
+warSrcDirIsOutput=true

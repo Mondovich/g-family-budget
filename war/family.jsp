@@ -1,3 +1,5 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
@@ -25,16 +27,21 @@
 	<jsp:include page="topmenu.jsp"></jsp:include>
 	
 	<div id="content">
-		Family<br />
-		<% List<Person> list = (List<Person>) request.getSession().getAttribute("persons");
-		if (list != null){
-			for(Person person : list) {
-		%>
-		<%= person.getFirstName() + " " + person.getLastName() + "<br />"%>
-		<%
-			}
-		}
-		%>
+		<div id="header">
+			<table id="family">
+				<tr><th colspan="2">Family</th></tr>
+				<tr><th>First Name</th><th>Last Name</th></tr>
+				<s:iterator value="listOfPersons">
+					<tr>
+						<td><s:property value="firstName" /></td>
+						<td><s:property value="lastName" /></td>
+					</tr>
+				</s:iterator>
+			</table>
+			<div class="buttonwrapper">
+				<a class="ovalbutton" href="new"><span>+</span></a>
+			</div>
+		</div>
 		<form action="family" method="post">
 			<label>First Name</label>
 			<input name="firstname" type="text"></input><br />

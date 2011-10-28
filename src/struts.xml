@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<include file="struts-default.xml"></include>
+	<package name="" namespace="/" extends="struts-default">
+		<action name="">
+			<result>/index.jsp</result>
+		</action>
+		<action name="home">
+			<result>/index.jsp</result>
+		</action>
+		<action name="family" class="it.mondovich.servlets.FamilyAction">
+			<result>/family.jsp</result>
+		</action>
+		<action name="bankaccount" class="it.mondovich.servlets.BankAccountAction">
+			<result>/bankaccount.jsp</result>
+		</action>
+		<action name="reports" class="it.mondovich.servlets.ReportAction">
+			<result>/reports.jsp</result>
+		</action>
+	</package>
+</struts>
