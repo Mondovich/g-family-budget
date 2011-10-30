@@ -37,9 +37,9 @@
 						<td><s:property value="lastName" /></td>
 						<td>
 							<div class="buttonwrapper">
-							<s:action name="delete">
-								<s:param></s:param>
-							</s:action>
+									<s:action name="delete" var="key">
+										<s:param name="entry" value="[0]"></s:param>
+									</s:action>
 								<a class="ovalbutton" href="delete?id=<s:property value="key.id" />"><span>-</span></a>
 							</div>
 						</td>

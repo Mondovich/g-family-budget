@@ -8,11 +8,15 @@
 		<action name="">
 			<result>/WEB-INF/index.jsp</result>
 		</action>
+		<action name="login">
+			<result>/_ah/login</result>
+		</action>
 		<action name="home">
 			<result>/WEB-INF/index.jsp</result>
 		</action>
 		<action name="family" class="it.mondovich.actions.FamilyAction">
 			<result>/WEB-INF/family.jsp</result>
+			<result name="error">/WEB-INF/family.jsp</result>
 		</action>
 		<action name="new" method="newPerson" class="it.mondovich.actions.FamilyAction">
 			<result>/WEB-INF/family.jsp</result>

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.google.appengine.api.datastore.Key;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -46,7 +47,7 @@ public class FamilyAction extends ActionSupport {
 	public String deletePerson() throws Exception {
 		EntityManager em = EMFactory.get().createEntityManager();
 		
-		String[] key = (String[]) ActionContext.getContext().getParameters().get("id");
+		Key[] key = (Key[]) ActionContext.getContext().getParameters().get("id");
 
 		if (key == null) {
 			fillListOfPerson(em);
