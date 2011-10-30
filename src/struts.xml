@@ -6,19 +6,26 @@
 	<include file="struts-default.xml"></include>
 	<package name="" namespace="/" extends="struts-default">
 		<action name="">
-			<result>/index.jsp</result>
+			<result>/WEB-INF/index.jsp</result>
 		</action>
 		<action name="home">
-			<result>/index.jsp</result>
+			<result>/WEB-INF/index.jsp</result>
 		</action>
-		<action name="family" class="it.mondovich.servlets.FamilyAction">
-			<result>/family.jsp</result>
+		<action name="family" class="it.mondovich.actions.FamilyAction">
+			<result>/WEB-INF/family.jsp</result>
 		</action>
-		<action name="bankaccount" class="it.mondovich.servlets.BankAccountAction">
-			<result>/bankaccount.jsp</result>
+		<action name="new" method="newPerson" class="it.mondovich.actions.FamilyAction">
+			<result>/WEB-INF/family.jsp</result>
 		</action>
-		<action name="reports" class="it.mondovich.servlets.ReportAction">
-			<result>/reports.jsp</result>
+		<action name="delete" method="deletePerson" class="it.mondovich.actions.FamilyAction">
+			<result>/WEB-INF/family.jsp</result>
+			<result name="ERROR">/WEB-INF/family.jsp</result>
+		</action>
+		<action name="bankaccount" class="it.mondovich.actions.BankAccountAction">
+			<result>/WEB-INF/bankaccount.jsp</result>
+		</action>
+		<action name="reports" class="it.mondovich.actions.ReportAction">
+			<result>/WEB-INF/reports.jsp</result>
 		</action>
 	</package>
 </struts>

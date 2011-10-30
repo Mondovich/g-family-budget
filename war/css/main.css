@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+body {
+	background-color: #ggg;
+}
+
 #topMenu {
 	float: left;
 	position: absolute;

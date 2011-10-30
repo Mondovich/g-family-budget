@@ -1,4 +1,4 @@
-package it.mondovich.servlets;
+package it.mondovich.actions;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

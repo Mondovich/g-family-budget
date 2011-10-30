@@ -1,4 +1,4 @@
-package it.mondovich.servlets;
+package it.mondovich.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 
