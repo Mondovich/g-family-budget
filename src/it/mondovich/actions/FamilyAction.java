@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -22,9 +23,9 @@ public class FamilyAction extends ActionSupport {
 	public String execute() throws Exception {
 		EntityManager em = EMFactory.get().createEntityManager();
 
-		fillListOfPerson(em);
-
 		em.close();
+		
+		fillListOfPerson();
 
 		return SUCCESS;
 	}
@@ -38,39 +39,41 @@ public class FamilyAction extends ActionSupport {
 
 		em.persist(person);
 		
-		fillListOfPerson(em);
-		
 		em.close();
+		
+		fillListOfPerson();
 		
 		return SUCCESS;
 	}
 	public String deletePerson() throws Exception {
 		EntityManager em = EMFactory.get().createEntityManager();
 		
-		Key[] key = (Key[]) ActionContext.getContext().getParameters().get("id");
+		String[] id = (String[]) ActionContext.getContext().getParameters().get("id");
 
-		if (key == null) {
-			fillListOfPerson(em);
+		if (id == null) {
 			em.close();
+			fillListOfPerson(); 
 			return ERROR;
 		}
 		
-		Person person = em.find(Person.class, key[0]);
+		Person person = em.find(Person.class, KeyFactory.createKey("Person", Long.parseLong(id[0])));
 
 		if (person != null) em.remove(person);
 		
-		fillListOfPerson(em);
-		
 		em.close();
+		
+		fillListOfPerson();
 		
 		return SUCCESS;
 	}
 	
-	private void fillListOfPerson(EntityManager em){
+	private void fillListOfPerson(){
+		EntityManager em = EMFactory.get().createEntityManager();
 		listOfPerson = new ArrayList<Person>();
 		for (Person person : (List<Person>)em.createQuery("select p from Person p").getResultList()) {
 			listOfPerson.add(person);
 		}
+		em.close();
 	}
 
 	public List<Person> getListOfPerson() {
