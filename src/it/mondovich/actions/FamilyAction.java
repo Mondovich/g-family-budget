@@ -1,12 +1,16 @@
 package it.mondovich.actions;
 
 import it.mondovich.EMFactory;
+import it.mondovich.data.dao.PersonDAO;
+import it.mondovich.data.dao.PersonDAOImpl;
 import it.mondovich.data.entities.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -18,49 +22,37 @@ public class FamilyAction extends ActionSupport {
 	private String firstname;
 	private String lastname;
 	private List<Person> listOfPerson;
+	private PersonDAO personDAO = new PersonDAOImpl();
 
 	@Override
 	public String execute() throws Exception {
-		EntityManager em = EMFactory.get().createEntityManager();
-
-		em.close();
-		
 		fillListOfPerson();
 
 		return SUCCESS;
 	}
 	
 	public String newPerson() throws Exception {
-		EntityManager em = EMFactory.get().createEntityManager();
-
 		Person person = new Person();
 		person.setFirstName(firstname);
 		person.setLastName(lastname);
 
-		em.persist(person);
-		
-		em.close();
+		personDAO.persist(person);
 		
 		fillListOfPerson();
 		
 		return SUCCESS;
 	}
 	public String deletePerson() throws Exception {
-		EntityManager em = EMFactory.get().createEntityManager();
-		
 		String[] id = (String[]) ActionContext.getContext().getParameters().get("id");
 
-		if (id == null) {
-			em.close();
+		if (id == null || !StringUtils.isNumeric(id[0])) {
 			fillListOfPerson(); 
 			return ERROR;
 		}
 		
-		Person person = em.find(Person.class, KeyFactory.createKey("Person", Long.parseLong(id[0])));
+		Person person = personDAO.findById(KeyFactory.createKey("Person", Long.parseLong(id[0])));
 
-		if (person != null) em.remove(person);
-		
-		em.close();
+		if (person != null) personDAO.remove(person);
 		
 		fillListOfPerson();
 		
@@ -68,12 +60,11 @@ public class FamilyAction extends ActionSupport {
 	}
 	
 	private void fillListOfPerson(){
-		EntityManager em = EMFactory.get().createEntityManager();
 		listOfPerson = new ArrayList<Person>();
-		for (Person person : (List<Person>)em.createQuery("select p from Person p").getResultList()) {
+		for (Person person : personDAO.findAll()) {
 			listOfPerson.add(person);
 		}
-		em.close();
+		personDAO.close();
 	}
 
 	public List<Person> getListOfPerson() {

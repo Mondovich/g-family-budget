@@ -4,7 +4,7 @@
 <% UserService userService = UserServiceFactory.getUserService(); %>
 <div id="topMenu">
 	<div class="button">
-		<a href="index.jsp">Home</a>
+		<a href="">Home</a>
 	</div>
 	<div class="button">	
 		<a href="family">Family</a>

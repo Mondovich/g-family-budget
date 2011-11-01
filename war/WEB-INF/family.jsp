@@ -28,32 +28,33 @@
 	
 	<div id="content">
 		<div id="header">
-			<table id="family">
-				<tr><th colspan="3">Family</th></tr>
-				<tr><th>First Name</th><th>Last Name</th><th>&nbsp;</th></tr>
-				<s:iterator value="listOfPerson">
+			<form action="new" method="post">
+				<table id="family">
+					<tr><th colspan="3">Family</th></tr>
+					<tr><th>First Name</th><th>Last Name</th><th>&nbsp;</th></tr>
+					<s:iterator value="listOfPerson">
+						<tr>
+							<td><s:property value="firstName" /></td>
+							<td><s:property value="lastName" /></td>
+							<td>
+								<div class="buttonwrapper">
+									<a class="ovalbutton" href="delete?id=<s:property value="key.id" />"><span>-</span></a>
+								</div>
+							</td>
+						</tr>
+					</s:iterator>
 					<tr>
-						<td><s:property value="firstName" /></td>
-						<td><s:property value="lastName" /></td>
+						<td><input name="firstname" type="text"></input></td>
+						<td><input name="lastname" type="text"></input</td>
 						<td>
 							<div class="buttonwrapper">
-								<a class="ovalbutton" href="delete?id=<s:property value="key.id" />"><span>-</span></a>
+								<input name="crea" type="submit" value="+"></input>
 							</div>
 						</td>
 					</tr>
-				</s:iterator>
-			</table>
-			<div class="buttonwrapper">
-				<a class="ovalbutton" href="new"><span>+</span></a>
-			</div>
+				</table>
+			</form>
 		</div>
-		<form action="new" method="post">
-			<label>First Name</label>
-			<input name="firstname" type="text"></input><br />
-			<label>Last Name</label>
-			<input name="lastname" type="text"></input><br />
-			<input name="crea" type="submit" value="Crea"></input>
-		</form>
 	</div>
 </body>
 </html>
