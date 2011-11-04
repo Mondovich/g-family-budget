@@ -4,38 +4,67 @@ import it.mondovich.EMFactory;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
-public class AbstractDAO<T, ID extends Serializable> implements GenericDAO<T, ID> {
-	
+public class AbstractDAO<T, ID extends Serializable> implements
+		GenericDAO<T, ID> {
+
+	private EntityManager entityManager;
 	protected Class<T> entityClass;
-	
-	protected EntityManager entityManager;
-	
+
 	public AbstractDAO() {
-		this.entityManager = EMFactory.get().createEntityManager();
-		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
+				.getGenericSuperclass();
+		this.entityClass = (Class<T>) genericSuperclass
+				.getActualTypeArguments()[0];
 	}
 
 	@Override
-	public T findById(ID id) { return entityManager.find(entityClass, id); }
+	public T findById(ID id) {
+		try {
+			entityManager = EMFactory.get().createEntityManager();
+			return entityManager.find(entityClass, id);
+		} finally {
+			entityManager.close();
+		}
+	}
 
 	@Override
-	public List<T> findAll() {return entityManager.createQuery("select e from " + entityClass.getCanonicalName() + " e").getResultList();}
+	public List<T> findAll() {
+		try {
+			entityManager = EMFactory.get().createEntityManager();
+			List<T> list = entityManager.createQuery("select e from " + entityClass.getSimpleName() + " e").getResultList();
+			List<T> result = new ArrayList<T>();
+			for (T t : list) {
+				result.add(t);
+			}
+			return result;
+		} finally {
+			entityManager.close();
+		}
+	}
 
 	@Override
-	public void persist(T entity) { entityManager.persist(entity); }
+	public void persist(T entity) {
+		try {
+			entityManager = EMFactory.get().createEntityManager();
+			entityManager.persist(entity);
+		} finally {
+			entityManager.close();
+		}
+	}
 
 	@Override
-	public void remove(T entity) { entityManager.remove(entity); }
-
-	@Override
-	public void close() { entityManager.close(); }
-	
-	
+	public void remove(T entity) {
+		try {
+			entityManager = EMFactory.get().createEntityManager();
+			entityManager.remove(entity);
+		} finally {
+			entityManager.close();
+		}
+	}
 
 }

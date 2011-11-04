@@ -1,6 +1,5 @@
 package it.mondovich.actions;
 
-import it.mondovich.EMFactory;
 import it.mondovich.data.dao.PersonDAO;
 import it.mondovich.data.dao.PersonDAOImpl;
 import it.mondovich.data.entities.Person;
@@ -8,11 +7,8 @@ import it.mondovich.data.entities.Person;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import org.apache.commons.lang.StringUtils;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -64,7 +60,6 @@ public class FamilyAction extends ActionSupport {
 		for (Person person : personDAO.findAll()) {
 			listOfPerson.add(person);
 		}
-		personDAO.close();
 	}
 
 	public List<Person> getListOfPerson() {

@@ -13,6 +13,4 @@ public interface GenericDAO<T, ID extends Serializable> {
  
     void remove(T entity);
     
-    void close();
-    
 }
