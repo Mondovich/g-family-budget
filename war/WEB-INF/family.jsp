@@ -46,8 +46,10 @@
 							<td><s:property value="lastName" /></td>
 							<td>
 								<div class="buttonwrapper">
-									<a class="ovalbutton"
-										href="delete?id=<s:property value="key.id" />"><span>-</span></a>
+									<s:url id="deleteUrl" action="delete">
+										<s:param name="id" value="%{key.id}"></s:param>
+									</s:url>
+									<s:a cssClass="ovalbutton" href="%{deleteUrl}"><span>-</span></s:a>
 								</div>
 							</td>
 						</tr>
