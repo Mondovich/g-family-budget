@@ -1,6 +1,7 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
@@ -18,40 +19,50 @@
 </head>
 <body>
 	<%
-	    UserService userService = UserServiceFactory.getUserService();
-		if (!userService.isUserLoggedIn()){
-			response.sendRedirect(userService.createLoginURL(request.getRequestURI()));
-		} 
+		UserService userService = UserServiceFactory.getUserService();
+		if (!userService.isUserLoggedIn()) {
+			response.sendRedirect(userService.createLoginURL(request
+					.getRequestURI()));
+		}
 	%>
-	
+
 	<jsp:include page="topmenu.jsp"></jsp:include>
-	
+
 	<div id="content">
 		<div id="header">
 			<form action="new" method="post">
 				<table id="family">
-					<tr><th colspan="3">Family</th></tr>
-					<tr><th>First Name</th><th>Last Name</th><th>&nbsp;</th></tr>
+					<tr>
+						<th colspan="3">Family</th>
+					</tr>
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>&nbsp;</th>
+					</tr>
 					<s:iterator value="listOfPerson">
 						<tr>
 							<td><s:property value="firstName" /></td>
 							<td><s:property value="lastName" /></td>
 							<td>
 								<div class="buttonwrapper">
-									<a class="ovalbutton" href="delete?id=<s:property value="key.id" />"><span>-</span></a>
+									<a class="ovalbutton"
+										href="delete?id=<s:property value="key.id" />"><span>-</span></a>
 								</div>
 							</td>
 						</tr>
 					</s:iterator>
-					<tr>
-						<td><input name="firstname" type="text"></input></td>
-						<td><input name="lastname" type="text"></input</td>
-						<td>
-							<div class="buttonwrapper">
-								<input name="crea" type="submit" value="+"></input>
-							</div>
-						</td>
-					</tr>
+					<s:push value="person">
+						<tr>
+							<td><input name="firstName" type="text"></input></td>
+							<td><input name="lastName" type="text"></input</td>
+							<td>
+								<div class="buttonwrapper">
+									<input name="crea" type="submit" value="+"></input>
+								</div>
+							</td>
+						</tr>
+					</s:push>
 				</table>
 			</form>
 		</div>

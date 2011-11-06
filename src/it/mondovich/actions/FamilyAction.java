@@ -4,21 +4,28 @@ import it.mondovich.data.dao.PersonDAO;
 import it.mondovich.data.dao.PersonDAOImpl;
 import it.mondovich.data.entities.Person;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.google.appengine.api.datastore.KeyFactory;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 
-public class FamilyAction extends ActionSupport {
+public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 
-	private String firstname;
-	private String lastname;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Person person = new Person();
 	private List<Person> listOfPerson;
 	private PersonDAO personDAO = new PersonDAOImpl();
+	
+	@Override
+	public Person getModel() {
+		return person;
+	}
 
 	@Override
 	public String execute() throws Exception {
@@ -28,10 +35,6 @@ public class FamilyAction extends ActionSupport {
 	}
 	
 	public String newPerson() throws Exception {
-		Person person = new Person();
-		person.setFirstName(firstname);
-		person.setLastName(lastname);
-
 		personDAO.persist(person);
 		
 		fillListOfPerson();
@@ -46,9 +49,7 @@ public class FamilyAction extends ActionSupport {
 			return ERROR;
 		}
 		
-		Person person = personDAO.findById(KeyFactory.createKey("Person", Long.parseLong(id[0])));
-
-		if (person != null) personDAO.remove(person);
+		personDAO.remove(Long.parseLong(id[0]));
 		
 		fillListOfPerson();
 		
@@ -56,10 +57,7 @@ public class FamilyAction extends ActionSupport {
 	}
 	
 	private void fillListOfPerson(){
-		listOfPerson = new ArrayList<Person>();
-		for (Person person : personDAO.findAll()) {
-			listOfPerson.add(person);
-		}
+		listOfPerson = personDAO.findAll();
 	}
 
 	public List<Person> getListOfPerson() {
@@ -70,20 +68,12 @@ public class FamilyAction extends ActionSupport {
 		this.listOfPerson = listOfPerson;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }

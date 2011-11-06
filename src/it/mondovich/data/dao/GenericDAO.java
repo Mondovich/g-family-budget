@@ -1,16 +1,15 @@
 package it.mondovich.data.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
-public interface GenericDAO<T, ID extends Serializable> {
+public interface GenericDAO<T> {
 
-	T findById(ID id);
+	T findById(Long id);
 	 
     List<T> findAll();
  
     void persist(T entity);
  
-    void remove(T entity);
+    void remove(Long id);
     
 }

@@ -9,8 +9,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-public class AbstractDAO<T, ID extends Serializable> implements
-		GenericDAO<T, ID> {
+public class AbstractDAO<T> implements
+		GenericDAO<T> {
 
 	private EntityManager entityManager;
 	protected Class<T> entityClass;
@@ -23,7 +23,7 @@ public class AbstractDAO<T, ID extends Serializable> implements
 	}
 
 	@Override
-	public T findById(ID id) {
+	public T findById(Long id) {
 		try {
 			entityManager = EMFactory.get().createEntityManager();
 			return entityManager.find(entityClass, id);
@@ -37,11 +37,7 @@ public class AbstractDAO<T, ID extends Serializable> implements
 		try {
 			entityManager = EMFactory.get().createEntityManager();
 			List<T> list = entityManager.createQuery("select e from " + entityClass.getSimpleName() + " e").getResultList();
-			List<T> result = new ArrayList<T>();
-			for (T t : list) {
-				result.add(t);
-			}
-			return result;
+			return new ArrayList<T>(list);
 		} finally {
 			entityManager.close();
 		}
@@ -58,10 +54,10 @@ public class AbstractDAO<T, ID extends Serializable> implements
 	}
 
 	@Override
-	public void remove(T entity) {
+	public void remove(Long id) {
 		try {
 			entityManager = EMFactory.get().createEntityManager();
-			entityManager.remove(entity);
+			entityManager.remove(entityManager.find(entityClass, id));
 		} finally {
 			entityManager.close();
 		}
