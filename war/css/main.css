@@ -82,6 +82,11 @@ a.ovalbutton span {
 	/*Set 11px below to match value of 'padding-left' value above*/
 }
 
+a.clickable {
+	cursor: pointer;
+	font-weight: bold;
+}
+
 a.ovalbutton:hover { /* Hover state CSS */
 	background-position: bottom left;
 }
@@ -108,4 +113,8 @@ a.ovalbutton:hover span { /* Hover state CSS */
 
 .float_r {
 	float: right;
+}
+
+#addPersonForm {
+	border: 1px solid black;
 }

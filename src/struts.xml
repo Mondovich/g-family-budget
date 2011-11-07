@@ -11,6 +11,9 @@
 		<action name="login">
 			<result>/_ah/login</result>
 		</action>
+		<action name="logout">
+			<result>/_ah/login</result>
+		</action>
 		<action name="home">
 			<result>/WEB-INF/index.jsp</result>
 		</action>

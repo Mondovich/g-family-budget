@@ -15,6 +15,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="css/main.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <title>GFamilyBudget</title>
 </head>
 <body>
@@ -63,19 +64,22 @@
 						</td>
 					</tr>
 				</s:iterator>
-				<form action="newPerson" method="post">
+				<form id="addPersonForm" action="newPerson" method="post">
 					<s:push value="person">
 						<tr>
-							<td><input name="firstName" type="text" value="<s:property value="firstName" />"></input></td>
-							<td><input name="lastName" type="text" value="<s:property value="lastName" />"></input</td>
+							<td><input name="firstName" type="text"
+								value="<s:property value="firstName" />"></input></td>
+							<td><input name="lastName" type="text"
+								value="<s:property value="lastName" />"></input</td>
 							<td>
 								<div class="buttonwrapper">
 									<s:if test="key != null">
-										<input name="id" type="hidden" value="<s:property value="key.id" />">
-										<input name="crea" type="submit" value="Save" class="ovalbutton"></input>
+										<input name="id" type="hidden"
+											value="<s:property value="key.id" />">
+										<a id="addPerson" class="ovalbutton clickable"><span>Save</span></a>
 									</s:if>
 									<s:else>
-										<input name="crea" type="submit" value="Add" class="ovalbutton"></input>
+										<a id="addPerson" class="ovalbutton clickable"><span>Add</span></a>
 									</s:else>
 								</div>
 							</td>
@@ -85,5 +89,10 @@
 			</table>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$("#addPerson").click(function() {
+			$("#addPersonForm").submit();
+		});
+	</script>
 </body>
 </html>
