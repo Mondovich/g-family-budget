@@ -30,43 +30,59 @@
 
 	<div id="content">
 		<div id="header">
-			<form action="new" method="post">
-				<table id="family">
+			<table id="family">
+				<tr>
+					<th colspan="3">Family</th>
+				</tr>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>&nbsp;</th>
+				</tr>
+				<s:iterator value="listOfPerson">
 					<tr>
-						<th colspan="3">Family</th>
+						<td><s:property value="firstName" /></td>
+						<td><s:property value="lastName" /></td>
+						<td>
+							<div class="buttonwrapper">
+								<s:url id="editUrl" action="editPerson">
+									<s:param name="id" value="%{key.id}"></s:param>
+								</s:url>
+								<s:a cssClass="ovalbutton" href="%{editUrl}">
+									<span>Edit</span>
+								</s:a>
+							</div>
+							<div class="buttonwrapper">
+								<s:url id="deleteUrl" action="deletePerson">
+									<s:param name="id" value="%{key.id}"></s:param>
+								</s:url>
+								<s:a cssClass="ovalbutton" href="%{deleteUrl}">
+									<span>Delete</span>
+								</s:a>
+							</div>
+						</td>
 					</tr>
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>&nbsp;</th>
-					</tr>
-					<s:iterator value="listOfPerson">
-						<tr>
-							<td><s:property value="firstName" /></td>
-							<td><s:property value="lastName" /></td>
-							<td>
-								<div class="buttonwrapper">
-									<s:url id="deleteUrl" action="delete">
-										<s:param name="id" value="%{key.id}"></s:param>
-									</s:url>
-									<s:a cssClass="ovalbutton" href="%{deleteUrl}"><span>-</span></s:a>
-								</div>
-							</td>
-						</tr>
-					</s:iterator>
+				</s:iterator>
+				<form action="newPerson" method="post">
 					<s:push value="person">
 						<tr>
-							<td><input name="firstName" type="text"></input></td>
-							<td><input name="lastName" type="text"></input</td>
+							<td><input name="firstName" type="text" value="<s:property value="firstName" />"></input></td>
+							<td><input name="lastName" type="text" value="<s:property value="lastName" />"></input</td>
 							<td>
 								<div class="buttonwrapper">
-									<input name="crea" type="submit" value="+"></input>
+									<s:if test="key != null">
+										<input name="id" type="hidden" value="<s:property value="key.id" />">
+										<input name="crea" type="submit" value="Save" class="ovalbutton"></input>
+									</s:if>
+									<s:else>
+										<input name="crea" type="submit" value="Add" class="ovalbutton"></input>
+									</s:else>
 								</div>
 							</td>
 						</tr>
 					</s:push>
-				</table>
-			</form>
+				</form>
+			</table>
 		</div>
 	</div>
 </body>

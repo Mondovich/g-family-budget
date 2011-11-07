@@ -6,8 +6,12 @@ import it.mondovich.data.entities.Person;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts2.ServletActionContext;
+
+import com.google.appengine.api.datastore.KeyFactory;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -35,21 +39,42 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 	}
 	
 	public String newPerson() throws Exception {
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get( ServletActionContext.HTTP_REQUEST);
+		
+		if (request.getParameter("id") != null) {
+			person.setKey(KeyFactory.createKey("Person", Long.parseLong(request.getParameter("id"))));
+		}
 		personDAO.persist(person);
+		
+		fillListOfPerson();
+		
+		person = new Person();
+		
+		return SUCCESS;
+	}
+	public String editPerson() throws Exception {
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get( ServletActionContext.HTTP_REQUEST);
+		
+		person = personDAO.findById(Long.parseLong(request.getParameter("id")));
 		
 		fillListOfPerson();
 		
 		return SUCCESS;
 	}
 	public String deletePerson() throws Exception {
-		String[] id = (String[]) ActionContext.getContext().getParameters().get("id");
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get( ServletActionContext.HTTP_REQUEST);
 
-		if (id == null || !StringUtils.isNumeric(id[0])) {
+		Long id = null;
+		try {
+			id = Long.parseLong(request.getParameter("id"));
+		} catch (Exception e) {}
+		
+		if (id == null) {
 			fillListOfPerson(); 
 			return ERROR;
 		}
 		
-		personDAO.remove(Long.parseLong(id[0]));
+		personDAO.remove(id);
 		
 		fillListOfPerson();
 		

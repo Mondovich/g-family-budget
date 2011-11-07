@@ -92,9 +92,10 @@ a.ovalbutton:hover span { /* Hover state CSS */
 }
 
 .buttonwrapper {
-	/* Container you can use to surround a CSS button to clear float */
-	overflow: hidden; /*See: http://www.quirksmode.org/css/clearing.html */
-	width: 100%;
+	float: left;
+	padding: 0 0 0 2px;
+	vertical-align: baseline;
+	text-align: -webkit-auto;
 }
 
 .button {
