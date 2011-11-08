@@ -11,6 +11,9 @@
 		<action name="login">
 			<result>/_ah/login</result>
 		</action>
+		<action name="logout">
+			<result>/_ah/login</result>
+		</action>
 		<action name="home">
 			<result>/WEB-INF/index.jsp</result>
 		</action>
@@ -18,10 +21,13 @@
 			<result>/WEB-INF/family.jsp</result>
 			<result name="error">/WEB-INF/family.jsp</result>
 		</action>
-		<action name="new" method="newPerson" class="it.mondovich.actions.FamilyAction">
+		<action name="newPerson" method="newPerson" class="it.mondovich.actions.FamilyAction">
 			<result>/WEB-INF/family.jsp</result>
 		</action>
-		<action name="delete" method="deletePerson" class="it.mondovich.actions.FamilyAction">
+		<action name="editPerson" method="editPerson" class="it.mondovich.actions.FamilyAction">
+			<result>/WEB-INF/family.jsp</result>
+		</action>
+		<action name="deletePerson" method="deletePerson" class="it.mondovich.actions.FamilyAction">
 			<result>/WEB-INF/family.jsp</result>
 			<result name="ERROR">/WEB-INF/family.jsp</result>
 		</action>
