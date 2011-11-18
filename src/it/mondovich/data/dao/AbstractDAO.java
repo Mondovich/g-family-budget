@@ -1,18 +1,19 @@
 package it.mondovich.data.dao;
 
-import it.mondovich.EMFactory;
+import it.mondovich.data.PMFactory;
 
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import javax.jdo.PersistenceManager;
+
+import com.google.appengine.api.datastore.Key;
 
 public class AbstractDAO<T> implements
 		GenericDAO<T> {
 
-	private EntityManager entityManager;
+	private PersistenceManager persistenceManager;
 	protected Class<T> entityClass;
 
 	public AbstractDAO() {
@@ -21,45 +22,54 @@ public class AbstractDAO<T> implements
 		this.entityClass = (Class<T>) genericSuperclass
 				.getActualTypeArguments()[0];
 	}
+	
+	protected PersistenceManager getPersistenceManager() {
+		if (persistenceManager == null || persistenceManager.isClosed()) {
+			persistenceManager = PMFactory.get().getPersistenceManager();
+		}
+		return persistenceManager;
+	}
 
 	@Override
-	public T findById(Long id) {
+	public T findByKey(Key key) {
 		try {
-			entityManager = EMFactory.get().createEntityManager();
-			return entityManager.find(entityClass, id);
+			getPersistenceManager();
+			return persistenceManager.getObjectById(entityClass, key);
 		} finally {
-			entityManager.close();
+			persistenceManager.close();
 		}
 	}
 
 	@Override
 	public List<T> findAll() {
 		try {
-			entityManager = EMFactory.get().createEntityManager();
-			List<T> list = entityManager.createQuery("select e from " + entityClass.getSimpleName() + " e").getResultList();
+			getPersistenceManager();
+			List<T> list = (List<T>) persistenceManager.newQuery(entityClass).execute();
 			return new ArrayList<T>(list);
 		} finally {
-			entityManager.close();
+			persistenceManager.close();
 		}
 	}
 
 	@Override
 	public void persist(T entity) {
 		try {
-			entityManager = EMFactory.get().createEntityManager();
-			entityManager.persist(entity);
+			getPersistenceManager();
+			persistenceManager.makePersistent(entity);
+		} catch (Exception e) {
+			System.err.println(e);
 		} finally {
-			entityManager.close();
+			persistenceManager.close();
 		}
 	}
 
 	@Override
-	public void remove(Long id) {
+	public void remove(Key key) {
 		try {
-			entityManager = EMFactory.get().createEntityManager();
-			entityManager.remove(entityManager.find(entityClass, id));
+			getPersistenceManager();
+			persistenceManager.deletePersistent(persistenceManager.getObjectById(entityClass, key));
 		} finally {
-			entityManager.close();
+			persistenceManager.close();
 		}
 	}
 

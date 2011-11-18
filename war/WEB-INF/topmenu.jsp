@@ -4,7 +4,7 @@
 <% UserService userService = UserServiceFactory.getUserService(); %>
 <div id="topMenu">
 	<div class="button">
-		<a href="">Home</a>
+		<a href="home">Home</a>
 	</div>
 	<div class="button">	
 		<a href="family">Family</a>
@@ -16,7 +16,7 @@
 		<a href="reports">Reports</a>
 	</div>
 	<div class="button float_r">
-		<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign Out</a>
+		<a href="<%= userService.createLogoutURL("/home") %>">Sign Out</a>
 	</div>
 </div>
 	

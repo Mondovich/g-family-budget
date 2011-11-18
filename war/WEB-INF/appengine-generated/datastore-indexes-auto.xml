@@ -1,4 +1,10 @@
-<!-- Indices written at Mon, 7 Nov 2011 21:51:50 UTC -->
+<!-- Indices written at Fri, 18 Nov 2011 16:46:37 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Person" ancestor="true" source="auto">
+        <property name="persons_INTEGER_IDX" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>
