@@ -14,12 +14,7 @@
 <title>GFamilyBudget</title>
 </head>
 <body>
-	<%
-	    UserService userService = UserServiceFactory.getUserService();
-		if (!userService.isUserLoggedIn()){
-			response.sendRedirect(userService.createLoginURL(request.getRequestURI()));
-		} 
-	%>
+	<jsp:include page="restricted.jsp"></jsp:include>
 	
 	<jsp:include page="topmenu.jsp"></jsp:include>
 	

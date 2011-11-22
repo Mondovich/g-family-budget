@@ -2,8 +2,8 @@ package it.mondovich.data.dao;
 
 import it.mondovich.data.entities.Person;
 
-public interface PersonDAO extends GenericDAO<Person> {
-	
-	void persist(Person entity);
+import com.google.appengine.api.datastore.Key;
 
+public interface PersonDAO extends GenericDAO<Person, Key> {
+	
 }

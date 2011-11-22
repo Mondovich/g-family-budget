@@ -115,6 +115,6 @@ a.ovalbutton:hover span { /* Hover state CSS */
 	float: right;
 }
 
-#addPersonForm {
+#addPersonForm, #addBankAccountForm {
 	border: 1px solid black;
 }

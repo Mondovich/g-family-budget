@@ -3,15 +3,12 @@ package it.mondovich.data.dao;
 import it.mondovich.data.PMFactory;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 
-import com.google.appengine.api.datastore.Key;
-
-public class AbstractDAO<T> implements
-		GenericDAO<T> {
+public class AbstractDAO<T, K> implements
+		GenericDAO<T, K> {
 
 	private PersistenceManager persistenceManager;
 	protected Class<T> entityClass;
@@ -31,10 +28,11 @@ public class AbstractDAO<T> implements
 	}
 
 	@Override
-	public T findByKey(Key key) {
+	public T findByKey(K key) {
 		try {
 			getPersistenceManager();
-			return persistenceManager.getObjectById(entityClass, key);
+			T entity = persistenceManager.getObjectById(entityClass, key);
+			return persistenceManager.detachCopy(entity);
 		} finally {
 			persistenceManager.close();
 		}
@@ -45,26 +43,27 @@ public class AbstractDAO<T> implements
 		try {
 			getPersistenceManager();
 			List<T> list = (List<T>) persistenceManager.newQuery(entityClass).execute();
-			return new ArrayList<T>(list);
+			return (List<T>) persistenceManager.detachCopyAll(list);
 		} finally {
 			persistenceManager.close();
 		}
 	}
 
 	@Override
-	public void persist(T entity) {
+	public T save(T entity) {
 		try {
 			getPersistenceManager();
-			persistenceManager.makePersistent(entity);
+			entity = persistenceManager.makePersistent(entity);
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
 			persistenceManager.close();
 		}
+		return entity;
 	}
 
 	@Override
-	public void remove(Key key) {
+	public void delete(K key) {
 		try {
 			getPersistenceManager();
 			persistenceManager.deletePersistent(persistenceManager.getObjectById(entityClass, key));

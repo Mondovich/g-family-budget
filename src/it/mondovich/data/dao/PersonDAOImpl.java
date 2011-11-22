@@ -2,7 +2,9 @@ package it.mondovich.data.dao;
 
 import it.mondovich.data.entities.Person;
 
-public class PersonDAOImpl extends AbstractDAO<Person> implements
+import com.google.appengine.api.datastore.Key;
+
+public class PersonDAOImpl extends AbstractDAO<Person, Key> implements
 		PersonDAO {
 	
 }

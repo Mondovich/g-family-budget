@@ -8,6 +8,8 @@
 <title>Home Page</title>
 </head>
 <body>
+<jsp:include page="restricted.jsp"></jsp:include>
+
 <s:actionmessage />
 
 </body>

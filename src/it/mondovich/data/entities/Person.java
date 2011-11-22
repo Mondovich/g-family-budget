@@ -1,5 +1,8 @@
 package it.mondovich.data.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -16,7 +19,10 @@ public class Person {
 	private Key key;
 	
 	@Persistent
-	private Account account;
+	private Key account;
+	
+	@Persistent
+	private Set<Key> bankAccounts = new HashSet<Key>();
 	
 	@Persistent
 	private String firstName;
@@ -32,12 +38,20 @@ public class Person {
 		this.key = key;
 	}
 
-	public Account getAccount() {
+	public Key getAccount() {
 		return account;
 	}
 
-	public void setAccount(Account account) {
+	public void setAccount(Key account) {
 		this.account = account;
+	}
+
+	public Set<Key> getBankAccounts() {
+		return bankAccounts;
+	}
+
+	public void setBankAccounts(Set<Key> bankAccounts) {
+		this.bankAccounts = bankAccounts;
 	}
 
 	public String getFirstName() {

@@ -10,17 +10,13 @@ import it.mondovich.util.ContextUtils;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.ServletActionContext;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -49,22 +45,26 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 		
 		Account account = accountDAO.findByGmail(user.getEmail());
 		if (account == null) {
-			accountDAO.persist(new Account(user.getEmail()));
+			accountDAO.save(new Account(user.getEmail()));
 			account = accountDAO.findByGmail(user.getEmail());
 		}
 		
-		log.debug("Accound ID " + account.getId());
+		log.debug("Accound ID " + account.getGmail());
 		
 		return SUCCESS;
 	}
 	
 	public String newPerson() throws Exception {
+		Account account = accountDAO.findByGmail(user.getEmail());
 		if (ContextUtils.getParameter("id") != null) {
-			Key parentKey = KeyFactory.createKey("Account", accountDAO.findByGmail(UserServiceFactory.getUserService().getCurrentUser().getEmail()).getId());
-			person.setKey(KeyFactory.createKey(parentKey, "Person", Long.parseLong(ContextUtils.getParameter("id"))));
-			personDAO.persist(person);
+			Key keyPerson = KeyFactory.createKey("Person", Long.parseLong(ContextUtils.getParameter("id")));
+			person.setKey(keyPerson);
+			personDAO.save(person);
 		} else {
-			accountDAO.addPerson(accountDAO.findByGmail(user.getEmail()), person);
+			person.setAccount(KeyFactory.createKey("Account", account.getGmail()));
+			person = personDAO.save(person);
+			account.getPersons().add(person.getKey());
+			accountDAO.save(account);
 		}
 		
 		fillListOfPerson();
@@ -74,21 +74,16 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 		return SUCCESS;
 	}
 	public String editPerson() throws Exception {
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get( ServletActionContext.HTTP_REQUEST);
-		
-		Key parentKey = KeyFactory.createKey("Account", accountDAO.findByGmail(UserServiceFactory.getUserService().getCurrentUser().getEmail()).getId());
-		person = personDAO.findByKey(KeyFactory.createKey(parentKey, "Person", Long.parseLong(request.getParameter("id"))));
+		person = personDAO.findByKey(KeyFactory.createKey("Person", ContextUtils.getLongParameter("id")));
 		
 		fillListOfPerson();
 		
 		return SUCCESS;
 	}
 	public String deletePerson() throws Exception {
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get( ServletActionContext.HTTP_REQUEST);
-
 		Long id = null;
 		try {
-			id = Long.parseLong(request.getParameter("id"));
+			id = ContextUtils.getLongParameter("id");
 		} catch (Exception e) {}
 		
 		if (id == null) {
@@ -96,7 +91,8 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 			return ERROR;
 		}
 		
-		personDAO.remove(KeyFactory.createKey("Person", id));
+		Key keyPerson = KeyFactory.createKey("Person", id);
+		personDAO.delete(keyPerson);
 		
 		fillListOfPerson();
 		

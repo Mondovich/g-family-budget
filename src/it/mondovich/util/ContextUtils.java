@@ -14,5 +14,9 @@ public class ContextUtils {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get( ServletActionContext.HTTP_REQUEST);
 		return request.getParameter(param);
 	}
+	
+	public static Long getLongParameter(String param) {
+		return Long.parseLong(getParameter(param));
+	}
 
 }

@@ -2,16 +2,14 @@ package it.mondovich.data.dao;
 
 import java.util.List;
 
-import com.google.appengine.api.datastore.Key;
+public interface GenericDAO<T, K> {
 
-public interface GenericDAO<T> {
-
-	T findByKey(Key key);
+	T findByKey(K key);
 	 
     List<T> findAll();
  
-    void persist(T entity);
+    T save(T entity);
  
-    void remove(Key key);
+    void delete(K key);
     
 }

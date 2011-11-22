@@ -33,6 +33,17 @@
 		</action>
 		<action name="bankaccount" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>
+			<result name="error">/WEB-INF/bankaccount.jsp</result>
+		</action>
+		<action name="newBankAccount" method="newBankAccount" class="it.mondovich.actions.BankAccountAction">
+			<result>/WEB-INF/bankaccount.jsp</result>
+		</action>
+		<action name="editBankAccount" method="editBankAccount" class="it.mondovich.actions.BankAccountAction">
+			<result>/WEB-INF/bankaccount.jsp</result>
+		</action>
+		<action name="deleteBankAccount" method="deleteBankAccount" class="it.mondovich.actions.BankAccountAction">
+			<result>/WEB-INF/bankaccount.jsp</result>
+			<result name="ERROR">/WEB-INF/bankaccount.jsp</result>
 		</action>
 		<action name="reports" class="it.mondovich.actions.ReportAction">
 			<result>/WEB-INF/reports.jsp</result>
