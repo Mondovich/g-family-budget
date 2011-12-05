@@ -25,14 +25,16 @@ body {
 	text-decoration: none !important;
 }
 
-#topMenu  a:hover {
+.hover, .hover input {
 	background-color: darkgrey;
 	background-position: 0 -102px;
 	background-repeat: repeat-x;
+	cursor: pointer;
 }
 
-#topMenu  a:selected {
+#topMenu .selected {
 	border-top: 1px solid red;
+	padding-bottom: 1px;
 }
 
 #content {
@@ -117,4 +119,9 @@ a.ovalbutton:hover span { /* Hover state CSS */
 
 #addPersonForm, #addBankAccountForm {
 	border: 1px solid black;
+}
+
+.flatInput {
+	background: white;
+	border: 0px;
 }

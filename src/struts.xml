@@ -4,6 +4,10 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<include file="struts-default.xml"></include>
+	<!--
+	<constant name="struts.ui.theme" value="gfbtmpl" />
+	<constant name="struts.ui.templateDir" value="template" />
+	-->
 	<package name="" namespace="/" extends="struts-default">
 		<action name="">
 			<result>/WEB-INF/index.jsp</result>
@@ -29,7 +33,7 @@
 		</action>
 		<action name="deletePerson" method="deletePerson" class="it.mondovich.actions.FamilyAction">
 			<result>/WEB-INF/family.jsp</result>
-			<result name="ERROR">/WEB-INF/family.jsp</result>
+			<result name="error">/WEB-INF/family.jsp</result>
 		</action>
 		<action name="bankaccount" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>
@@ -38,12 +42,18 @@
 		<action name="newBankAccount" method="newBankAccount" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>
 		</action>
+		<action name="addBankAccountOwner" method="addBankAccountOwner" class="it.mondovich.actions.BankAccountAction">
+			<result>/WEB-INF/bankaccount.jsp</result>
+		</action>
 		<action name="editBankAccount" method="editBankAccount" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>
 		</action>
 		<action name="deleteBankAccount" method="deleteBankAccount" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>
-			<result name="ERROR">/WEB-INF/bankaccount.jsp</result>
+			<result name="error">/WEB-INF/bankaccount.jsp</result>
+		</action>
+		<action name="bankAccountDetails" method="listMovements" class="it.mondovich.actions.MovementAction">
+			<result>/WEB-INF/movements.jsp</result>
 		</action>
 		<action name="reports" class="it.mondovich.actions.ReportAction">
 			<result>/WEB-INF/reports.jsp</result>

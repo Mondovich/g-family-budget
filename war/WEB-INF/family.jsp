@@ -11,8 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="css/main.css">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<jsp:include page="header.jsp"></jsp:include>
 <title>GFamilyBudget</title>
 </head>
 <body>
@@ -84,6 +83,7 @@
 		$("#addPerson").click(function() {
 			$("#addPersonForm").submit();
 		});
+		$("#div_family").addClass("selected");
 	</script>
 </body>
 </html>

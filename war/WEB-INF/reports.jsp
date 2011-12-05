@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" style="" href="css/main.css">
+<jsp:include page="header.jsp"></jsp:include>
 <title>GFamilyBudget</title>
 </head>
 <body>
@@ -15,5 +15,8 @@
 	<div id="content">
 		Reports
 	</div>
+	<script type="text/javascript">
+		$("#div_reports").addClass("selected");
+	</script>
 </body>
 </html>

@@ -10,9 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="css/main.css">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="/js/jquery.maskMoney.js"></script>
+<jsp:include page="header.jsp"></jsp:include>
 <title>GFamilyBudget</title>
 </head>
 <body>
@@ -24,17 +22,19 @@
 		<div id="header">
 			<table id="bankaccount">
 				<tr>
-					<th colspan="3">Bank Accounts</th>
+					<th colspan="4">Bank Accounts</th>
 				</tr>
 				<tr>
 					<th>Account name</th>
 					<th>Initial Value</th>
+					<th>Owners</th>
 					<th>&nbsp;</th>
 				</tr>
 				<s:iterator value="listOfBankAccount">
-					<tr>
+					<tr class="clickable" id='<s:property value="%{key.id}" />' url='bankAccountDetails'>
 						<td><s:property value="name" /></td>
-						<td><s:property value="initialValue" /></td>
+						<td>&euro;&nbsp;<input class="flatInput money" disabled="disabled" value="<s:property value="initialValue" />"></input></td>
+						<td><s:property value="getOwnersList(person)" /></td>
 						<td>
 							<div class="buttonwrapper">
 								<s:url id="editUrl" action="editBankAccount">
@@ -60,8 +60,14 @@
 						<tr>
 							<td><input name="name" type="text"
 								value="<s:property value="name" />"></input></td>
-							<td><input id="initialValue" type="text"
+							<td>&euro;&nbsp;<input class="money" name="initialValue" type="text"
 								value="<s:property value="initialValue" />"></input</td>
+							<td>
+								<select name="owners" size="4" multiple="multiple">
+									<s:iterator value="listOfPersons">
+										<option name="id" value="<s:property value="key.id"/>"><s:property value="firstName"/> <s:property value="lastName"/></option>
+									</s:iterator>
+								</select>
 							<td>
 								<div class="buttonwrapper">
 									<s:if test="key != null">
@@ -78,6 +84,9 @@
 					</s:push>
 				</form>
 			</table>
+			<s:actionerror />
+		</div>
+		<div id="movements">
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -85,10 +94,43 @@
 			$("#addBankAccountForm").submit();
 		});
 		
-		$("#addBankAccountForm").ready(function()
+		$("#addBankAccountOwner").click(function() {
+			$("#addBankAccountOwnerForm").submit();
+		});
+		
+		$("#bankaccount").ready(function()
         {
-            $('#initialValue').maskMoney({thousands:',', decimal:'.'});
+            $('.money').maskMoney({thousands:',', decimal:'.', allowZero: true, allowNegative: true});
+            $('.money').mask();
+            $(".clickable").hover(
+       		  function () {
+       		    $(this).addClass("hover");
+       		  },
+       		  function () {
+       		    $(this).removeClass("hover");
+       		  }
+       		);
+            $(".clickable").click(
+            	function() {
+            		var id = $(this).attr('id');
+            		window.location.hash = id;
+            		var url = $(this).attr('url');
+            		$.ajax({
+            			data: {id: id}, 
+						url: url,
+						context: document.body,
+						cache: false,
+						error: function(){
+							$("#movements").html("Could not retrieve movements on this bank account.");
+						},
+						success: function(html){
+							$("#movements").replaceWith(html);
+						}
+           			});
+            	}
+            );
         });
+		$("#div_bankaccount").addClass("selected");
 	</script>
 </body>
 </html>

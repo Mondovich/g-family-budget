@@ -1,12 +1,16 @@
 package it.mondovich.data.entities;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -18,7 +22,7 @@ public class BankAccount {
 	private Key key;
 	
 	@Persistent
-	private Key person;
+	private Set<Key> persons = new HashSet<Key>();
 	
 	@Persistent
 	private String name;
@@ -33,13 +37,13 @@ public class BankAccount {
 	public void setKey(Key key) {
 		this.key = key;
 	}
-
-	public Key getPerson() {
-		return person;
+	
+	public Set<Key> getPerson() {
+		return persons;
 	}
 
-	public void setPerson(Key person) {
-		this.person = person;
+	public void setPerson(Set<Key> person) {
+		this.persons = person;
 	}
 
 	public String getName() {

@@ -5,12 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp"></jsp:include>
 <title>Home Page</title>
 </head>
 <body>
-<jsp:include page="restricted.jsp"></jsp:include>
+	<jsp:include page="restricted.jsp"></jsp:include>
 
-<s:actionmessage />
+	<s:actionmessage />
 
+	
 </body>
 </html>
