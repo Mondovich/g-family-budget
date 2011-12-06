@@ -43,17 +43,24 @@ body {
 	padding: 10px;
 }
 
-#header {
+#header, #transactions #content {
 	position: relative; width : 100%;
 	border: 2px solid black;
 	width: 100%;
 }
 
-#header table {
+#transactions #content {
+	top: 0px;
+	padding: 0px;
+	margin: 5px 0px 0px 0px;
+	overflow: scroll;
+}
+
+#header table, #transactions table {
 	width: 100%;
 }
 
-#header table th {
+#header table th, #transactions table th {
 	border: 1px solid grey;
 	background-color: #ddd;
 }

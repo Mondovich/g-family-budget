@@ -52,8 +52,8 @@
 			<result>/WEB-INF/bankaccount.jsp</result>
 			<result name="error">/WEB-INF/bankaccount.jsp</result>
 		</action>
-		<action name="bankAccountDetails" method="listMovements" class="it.mondovich.actions.MovementAction">
-			<result>/WEB-INF/movements.jsp</result>
+		<action name="transactions" method="listTransactions" class="it.mondovich.actions.TransactionAction">
+			<result>/WEB-INF/transactions.jsp</result>
 		</action>
 		<action name="reports" class="it.mondovich.actions.ReportAction">
 			<result>/WEB-INF/reports.jsp</result>

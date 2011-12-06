@@ -31,7 +31,7 @@
 					<th>&nbsp;</th>
 				</tr>
 				<s:iterator value="listOfBankAccount">
-					<tr class="clickable" id='<s:property value="%{key.id}" />' url='bankAccountDetails'>
+					<tr class="clickable" id='<s:property value="%{key.id}" />'>
 						<td><s:property value="name" /></td>
 						<td>&euro;&nbsp;<input class="flatInput money" disabled="disabled" value="<s:property value="initialValue" />"></input></td>
 						<td><s:property value="getOwnersList(person)" /></td>
@@ -86,7 +86,7 @@
 			</table>
 			<s:actionerror />
 		</div>
-		<div id="movements">
+		<div id="transactions">
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -98,7 +98,7 @@
 			$("#addBankAccountOwnerForm").submit();
 		});
 		
-		$("#bankaccount").ready(function()
+		$(function()
         {
             $('.money').maskMoney({thousands:',', decimal:'.', allowZero: true, allowNegative: true});
             $('.money').mask();
@@ -110,25 +110,32 @@
        		    $(this).removeClass("hover");
        		  }
        		);
-            $(".clickable").click(
-            	function() {
-            		var id = $(this).attr('id');
-            		window.location.hash = id;
-            		var url = $(this).attr('url');
-            		$.ajax({
-            			data: {id: id}, 
-						url: url,
-						context: document.body,
-						cache: false,
-						error: function(){
-							$("#movements").html("Could not retrieve movements on this bank account.");
-						},
-						success: function(html){
-							$("#movements").replaceWith(html);
-						}
-           			});
+            $("#bankaccount .clickable").live('click', 
+            	function(e) {
+            		var state = {},
+            		id = 'account', url = $(this).attr( 'id' );
+            		state[ id ] = url;
+            		$.bbq.pushState( state );
+            		
+            		return false;
             	}
             );
+            $(window).bind( 'hashchange', function(e) {
+            	var that = $(this), url = $.bbq.getState( 'account' ) || '';
+            	if (url == '') return;
+            	$.ajax({
+        			data: {id: url}, 
+					url: 'transactions',
+					cache: false,
+					error: function(){
+						$("#transactions").html("Could not retrieve transactions on this bank account.");
+					},
+					success: function(html){
+						$("#transactions").replaceWith(html);
+					}
+       			});
+            });
+            $(window).trigger( 'hashchange' );
         });
 		$("#div_bankaccount").addClass("selected");
 	</script>

@@ -9,8 +9,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
-import org.apache.commons.lang.StringUtils;
+import javax.jdo.annotations.Unique;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -25,6 +24,7 @@ public class BankAccount {
 	private Set<Key> persons = new HashSet<Key>();
 	
 	@Persistent
+	@Unique
 	private String name;
 	
 	@Persistent

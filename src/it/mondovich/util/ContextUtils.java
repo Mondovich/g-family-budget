@@ -16,7 +16,9 @@ public class ContextUtils {
 	}
 	
 	public static Long getLongParameter(String param) {
-		return Long.parseLong(getParameter(param));
+		String paramString = getParameter(param);
+		if (paramString == null) return null;
+		return Long.parseLong(paramString);
 	}
 
 }
