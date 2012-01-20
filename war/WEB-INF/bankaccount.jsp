@@ -84,8 +84,8 @@
 		function resizeTransaction() {
 			//console.log($(window).height());
 			//console.log($("#transactions #content").position().top);
-			//var h = $(window).height()-$("#transactions #content").position().top - 60;
-			//$("#transactions #content").height(h);
+			var h = $(window).height()-$("#transactions #content").position().top - 60;
+			$("#transactions #content").height(h);
 		}
 	
 		$("#addBankAccountOwner").click(function() {
