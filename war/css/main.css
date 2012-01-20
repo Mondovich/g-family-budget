@@ -4,6 +4,15 @@ body {
 	background-color: #ggg;
 }
 
+table {
+	border-spacing: 0px;
+	border-color: white;
+}
+
+.v_margin {
+	margin: 5px 0px;
+}
+
 #topMenu {
 	float: left;
 	position: absolute;
@@ -124,11 +133,43 @@ a.ovalbutton:hover span { /* Hover state CSS */
 	float: right;
 }
 
-#addPersonForm, #addBankAccountForm {
+#addPersonForm, {
 	border: 1px solid black;
 }
 
 .flatInput {
 	background: white;
 	border: 0px;
+}
+
+#transaction #content {
+	text-align: center;
+}
+
+#dialog-modal {
+	display: none;
+}
+
+.actions {
+	display: none;
+	position: absolute;
+}
+
+img.imgWaitAnim {
+	position:absolute;
+   top:50%;
+   left:50%;
+   margin-top:-25px;
+   margin-left:-25px;
+}
+
+.ui-dialog .ui-dialog-content {
+	padding: 0px;
+}
+
+#addBankAccountDiv {
+	position: absolute;
+	top: 7px;
+	right: 8px;
+	z-index: 1;
 }

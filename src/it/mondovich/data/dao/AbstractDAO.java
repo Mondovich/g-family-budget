@@ -5,6 +5,7 @@ import it.mondovich.data.PMFactory;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 
 public class AbstractDAO<T, K> implements
@@ -54,6 +55,8 @@ public class AbstractDAO<T, K> implements
 		try {
 			getPersistenceManager();
 			entity = persistenceManager.makePersistent(entity);
+		} catch (JDOUserException e) {
+			throw e;
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {

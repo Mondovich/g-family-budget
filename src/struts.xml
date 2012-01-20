@@ -41,12 +41,13 @@
 		</action>
 		<action name="newBankAccount" method="newBankAccount" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>
+			<result name="input">/WEB-INF/bankaccount.jsp</result>
 		</action>
 		<action name="addBankAccountOwner" method="addBankAccountOwner" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>
 		</action>
 		<action name="editBankAccount" method="editBankAccount" class="it.mondovich.actions.BankAccountAction">
-			<result>/WEB-INF/bankaccount.jsp</result>
+			<result>/WEB-INF/edit_bankaccount.jsp</result>
 		</action>
 		<action name="deleteBankAccount" method="deleteBankAccount" class="it.mondovich.actions.BankAccountAction">
 			<result>/WEB-INF/bankaccount.jsp</result>

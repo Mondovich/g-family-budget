@@ -34,7 +34,7 @@
 					<th>Note</th>
 				</tr>
 			</table>
-			<div id="actions">New</div>
+			<a id="newTransaction" class="ovalbutton clickable"><span>Add</span></a>
 		</div>
 	</div>
 	<div id="dialog-modal" title="Basic modal dialog">
@@ -44,14 +44,7 @@
 	<script type="text/javascript">
 		$(function()
         {
-			var h = $(window).height()-$("#transactions #content").position().top-60;
-			$("#transactions #content").height(h);
-			
-			$(window).scroll(function() {
-				var h = $(window).height()-$("#transactions #content").position().top-60;
-				$("#transactions #content").height(h);
-			});
-			$("#actions").click(
+			$("#newTransaction").click(
 				function(e){
 					$( "#dialog:ui-dialog" ).dialog( "destroy" );
 					
@@ -59,6 +52,8 @@
 						height: 140,
 						modal: true
 					});
+					
+					return false;
 				}
 			);
         });

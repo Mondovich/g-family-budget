@@ -6,7 +6,6 @@ import it.mondovich.data.dao.BankAccountDAO;
 import it.mondovich.data.dao.BankAccountDAOImpl;
 import it.mondovich.data.dao.PersonDAO;
 import it.mondovich.data.dao.PersonDAOImpl;
-import it.mondovich.data.entities.Account;
 import it.mondovich.data.entities.BankAccount;
 import it.mondovich.data.entities.Person;
 import it.mondovich.util.ContextUtils;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.jdo.JDOObjectNotFoundException;
+import javax.jdo.JDOUserException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -25,6 +25,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -58,19 +59,36 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 		return SUCCESS;
 	}
 	
+	@Override
+	public void validate() {
+		String action = ActionContext.getContext().getName();
+		if (action.equals("newBankAccount")) {
+			if (StringUtils.isBlank(bankAccount.getName())) {
+				addActionError("Name is required");
+				addFieldError("name", "Name is required");
+			}
+		}
+	}
+
+
 	public String newBankAccount() throws Exception {
-		Account account = accountDAO.findByGmail(user.getEmail());
 		if (ContextUtils.getParameter("id") != null) {
-			Key keyBankAccount = KeyFactory.createKey("BankAccount", Long.parseLong(ContextUtils.getParameter("id")));
+			Key keyBankAccount = KeyFactory.createKey("BankAccount", ContextUtils.getLongParameter("id"));
 			bankAccount.setKey(keyBankAccount);
+			bankAccount.getPerson().clear();
+			for (Long ownersId : owners) {
+				bankAccount.getPerson().add(KeyFactory.createKey("Person", ownersId));
+			}
 			bankAccountDAO.save(bankAccount);
 		} else {
 			for (Long ownersId : owners) {
 				bankAccount.getPerson().add(KeyFactory.createKey("Person", ownersId));
 			}
-			bankAccount = bankAccountDAO.save(bankAccount);
-//			account.getPersons().add(bankAccount.getKey());
-//			accountDAO.save(account);
+			try {
+				bankAccount = bankAccountDAO.save(bankAccount);
+			} catch (JDOUserException e) {
+				addActionError(e.getMessage());
+			}
 		}
 		
 		prepare();
@@ -81,6 +99,13 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 	}
 	
 	public String editBankAccount() throws Exception {
+		Long id = ContextUtils.getLongParameter("id");
+		if (id != null) {
+			bankAccount = bankAccountDAO.findByKey(KeyFactory.createKey("BankAccount", id));
+		}
+		
+		prepare();
+		
 		return SUCCESS;
 	}
 	

@@ -9,6 +9,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
@@ -68,6 +70,10 @@ public class Person {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getCompleteName() {
+		return StringUtils.join(new String[] {firstName, lastName}, " ");
 	}
 	
 }
