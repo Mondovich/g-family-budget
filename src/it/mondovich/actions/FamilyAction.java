@@ -74,7 +74,10 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 		return SUCCESS;
 	}
 	public String editPerson() throws Exception {
-		person = personDAO.findByKey(KeyFactory.createKey("Person", ContextUtils.getLongParameter("id")));
+		Long id = ContextUtils.getLongParameter("id");
+		if (id != null) {
+			person = personDAO.findByKey(KeyFactory.createKey("Person", id));
+		}
 		
 		fillListOfPerson();
 		

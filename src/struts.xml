@@ -29,7 +29,7 @@
 			<result>/WEB-INF/family.jsp</result>
 		</action>
 		<action name="editPerson" method="editPerson" class="it.mondovich.actions.FamilyAction">
-			<result>/WEB-INF/family.jsp</result>
+			<result>/WEB-INF/edit_person.jsp</result>
 		</action>
 		<action name="deletePerson" method="deletePerson" class="it.mondovich.actions.FamilyAction">
 			<result>/WEB-INF/family.jsp</result>

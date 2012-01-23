@@ -2,8 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-
-
 <s:form id="addBankAccountForm" action="newBankAccount" method="post">
 	<s:push value="bankAccount">
 		<s:textfield label="Account Name" name="name" value="%{bankAccount.name}"></s:textfield>
