@@ -2,6 +2,7 @@
 
 body {
 	background-color: #ggg;
+	font-size: 14px
 }
 
 table {
@@ -27,6 +28,7 @@ table td {
 	background-color: black;
 	border-bottom: 1px solid grey;
 	color: white;
+	font-size: 16px
 }
 
 #topMenu  a {

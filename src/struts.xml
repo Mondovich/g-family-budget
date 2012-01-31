@@ -8,9 +8,16 @@
 	<constant name="struts.ui.theme" value="gfbtmpl" />
 	<constant name="struts.ui.templateDir" value="template" />
 	-->
-	<package name="" namespace="/" extends="struts-default">
+	<package name="home" namespace="/" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		
 		<action name="">
-			<result>/WEB-INF/index.jsp</result>
+			<result type="tiles">home</result>
+		</action>
+		<action name="home">
+			<result type="tiles">home</result>
 		</action>
 		<action name="login">
 			<result>/_ah/login</result>
@@ -18,46 +25,91 @@
 		<action name="logout">
 			<result>/_ah/login</result>
 		</action>
-		<action name="home">
-			<result>/WEB-INF/index.jsp</result>
+		<action name="editPayee" class="it.mondovich.actions.PayeeAction">
+			<result type="tiles">tiles.payee.edit</result>
 		</action>
-		<action name="family" class="it.mondovich.actions.FamilyAction">
-			<result>/WEB-INF/family.jsp</result>
-			<result name="error">/WEB-INF/family.jsp</result>
+		
+	</package>
+	
+	<package name="family" namespace="/family" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		
+		<action name="" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.family.view</result>
+			<result type="tiles" name="error">tiles.family.view</result>
 		</action>
-		<action name="newPerson" method="newPerson" class="it.mondovich.actions.FamilyAction">
-			<result>/WEB-INF/family.jsp</result>
+		
+		<action name="edit" method="editPerson" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.family.edit</result>
 		</action>
-		<action name="editPerson" method="editPerson" class="it.mondovich.actions.FamilyAction">
-			<result>/WEB-INF/edit_person.jsp</result>
+		
+		<action name="save" method="newPerson" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.family.view</result>
 		</action>
-		<action name="deletePerson" method="deletePerson" class="it.mondovich.actions.FamilyAction">
-			<result>/WEB-INF/family.jsp</result>
-			<result name="error">/WEB-INF/family.jsp</result>
+		
+		<action name="delete" method="deletePerson" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.family.view</result>
+			<result type="tiles" name="error">tiles.family.view</result>
 		</action>
-		<action name="bankaccount" class="it.mondovich.actions.BankAccountAction">
-			<result>/WEB-INF/bankaccount.jsp</result>
-			<result name="error">/WEB-INF/bankaccount.jsp</result>
+	</package>
+	
+	<package name="bankaccount" namespace="/bankaccount" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		
+		<action name="" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.bankaccount.view</result>
+			<result type="tiles" name="error">tiles.bankaccount.view</result>
 		</action>
+		
 		<action name="newBankAccount" method="newBankAccount" class="it.mondovich.actions.BankAccountAction">
-			<result>/WEB-INF/bankaccount.jsp</result>
-			<result name="input">/WEB-INF/bankaccount.jsp</result>
+			<result type="tiles">tiles.bankaccount.view</result>
+			<result type="tiles" name="input">tiles.bankaccount.view</result>
 		</action>
-		<action name="addBankAccountOwner" method="addBankAccountOwner" class="it.mondovich.actions.BankAccountAction">
-			<result>/WEB-INF/bankaccount.jsp</result>
+		
+		<action name="add" method="addBankAccountOwner" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.bankaccount.view</result>
 		</action>
-		<action name="editBankAccount" method="editBankAccount" class="it.mondovich.actions.BankAccountAction">
-			<result>/WEB-INF/edit_bankaccount.jsp</result>
+		
+		<action name="edit" method="editBankAccount" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.bankaccount.edit</result>
 		</action>
-		<action name="deleteBankAccount" method="deleteBankAccount" class="it.mondovich.actions.BankAccountAction">
-			<result>/WEB-INF/bankaccount.jsp</result>
-			<result name="error">/WEB-INF/bankaccount.jsp</result>
+		
+		<action name="delete" method="deleteBankAccount" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.bankaccount.view</result>
+			<result type="tiles" name="error">tiles.bankaccount.view</result>
 		</action>
-		<action name="transactions" method="listTransactions" class="it.mondovich.actions.TransactionAction">
-			<result>/WEB-INF/transactions.jsp</result>
+	</package>
+	
+	<package name="transaction" namespace="/bankaccount/transaction" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		
+		<action name="" method="listTransactions" class="it.mondovich.actions.TransactionAction">
+			<result type="tiles">tiles.transaction.view</result>
 		</action>
-		<action name="reports" class="it.mondovich.actions.ReportAction">
-			<result>/WEB-INF/reports.jsp</result>
+		
+		<action name="edit" method="editTransaction" class="it.mondovich.actions.TransactionAction">
+			<result type="tiles">tiles.transaction.edit</result>
+		</action>
+		
+		<action name="new" method="newTransaction" class="it.mondovich.actions.TransactionAction">
+			<result type="tiles">tiles.transaction.edit</result>
+			<result type="tiles" name="input">tiles.transaction.edit</result>
+		</action>
+	</package>
+	
+	<package name="report" namespace="/report" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		
+		<action name="" class="it.mondovich.actions.ReportAction">
+			<result type="tiles">tiles.report.view</result>
 		</action>
 	</package>
 </struts>

@@ -10,8 +10,23 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-core-2.5.6.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/struts2-core-2.2.3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/xwork-core-2.2.3.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/struts2-jquery-plugin-3.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jcl-over-slf4j-1.6.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-digester-2.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-log4j12-1.6.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tiles-template-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/struts2-jquery-plugin-3.2.1.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/struts2-gae-0.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/struts2-tiles-plugin-2.2.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tiles-api-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tiles-compat-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tiles-core-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tiles-jsp-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tiles-ognl-2.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/tiles-servlet-2.2.2.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

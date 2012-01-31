@@ -48,9 +48,66 @@ public class LoggingLifecycleListener implements CreateLifecycleListener,
 	}
 
 	public void preStore(InstanceLifecycleEvent event) {
-		log.info("Lifecycle : preStore for "
+ 		log.info("Lifecycle : preStore for "
 				+ ((PersistenceCapable) event.getSource()).jdoGetObjectId());
 		PersistenceCapable obj = ((PersistenceCapable) event.getSource());
+		if (obj.getClass().isAnnotationPresent(Unique.class)) {
+			try {
+				Query q = PMFactory.get().getPersistenceManager().newQuery(obj.getClass());
+				q.setResult("count(this)");
+				
+				Method getKey = obj.getClass().getMethod("getKey", new Class[0]);
+				Key key = (Key) getKey.invoke(obj);
+				
+				Unique unique = obj.getClass().getAnnotation(Unique.class);
+				Object[] params = null;
+				String filter = "", declaredParameters = "";
+				if (key != null) {
+					params = new Object[unique.members().length+1];
+				} else {
+					params = new Object[unique.members().length];
+				}
+				for (int index = 0; index < unique.members().length; index++) {
+					String member = unique.members()[index];
+					Field field = obj.getClass().getDeclaredField(member);
+					Method m = obj.getClass().getMethod("get"+StringUtils.capitalize(field.getName()), new Class[0]);
+					if (index == 0) {
+						filter = field.getName() + " == param" + index;
+						declaredParameters = field.getType().getName() + " param" + index;
+					} else {
+						filter += " && " + field.getName() + " == param" + index;
+						declaredParameters += ", " + field.getType().getName() + " param" + index;
+					}
+					params[index] = m.invoke(obj);
+				}
+				if (key != null) {
+					filter += "&& key != id";
+					params[params.length-1] = key;
+					declaredParameters += ", com.google.appengine.api.datastore.Key id";
+ 				}
+				q.setFilter(filter);
+				q.declareParameters(declaredParameters);
+				
+				Integer n = (Integer) q.executeWithArray(params);
+				if (n != null && n > 0) {
+					throw new JDOUserException("Unique constraint " + unique.name() + " violated!");
+				}
+			} catch (IllegalArgumentException e) {
+				log.error("Error!", e);
+			} catch (IllegalAccessException e) {
+				log.error("Error!", e);
+			} catch (SecurityException e) {
+				log.error("Error!", e);
+			} catch (NoSuchMethodException e) {
+				log.error("Error!", e);
+			} catch (InvocationTargetException e) {
+				log.error("Error!", e);
+			} catch (JDOUserException e) {
+				throw e;
+			} catch (Exception e) {
+				log.error("Error!", e);
+			}
+		}
 		Field[] f = obj.getClass().getDeclaredFields();
 		for (Field field : f) {
 			if (field.isAnnotationPresent(Unique.class)) {

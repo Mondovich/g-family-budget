@@ -19,8 +19,9 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
-public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
+public class FamilyAction extends ActionSupport implements ModelDriven<Person>, Preparable {
 	
 	private static Log log = LogFactory.getLog(FamilyAction.class);
 
@@ -33,6 +34,7 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 	private PersonDAO personDAO = new PersonDAOImpl();
 	private AccountDAO accountDAO = new AccountDAOImpl();
 	private User user = UserServiceFactory.getUserService().getCurrentUser();
+	private Account account = accountDAO.findByGmail(user.getEmail());
 	
 	@Override
 	public Person getModel() {
@@ -41,33 +43,26 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 
 	@Override
 	public String execute() throws Exception {
-		fillListOfPerson();
+		prepare();
 		
-		Account account = accountDAO.findByGmail(user.getEmail());
-		if (account == null) {
-			accountDAO.save(new Account(user.getEmail()));
-			account = accountDAO.findByGmail(user.getEmail());
-		}
-		
-		log.debug("Accound ID " + account.getGmail());
+		log.debug("Account ID " + account.getGmail());
 		
 		return SUCCESS;
 	}
 	
 	public String newPerson() throws Exception {
-		Account account = accountDAO.findByGmail(user.getEmail());
+		person.setAccount(KeyFactory.createKey("Account", account.getGmail()));
 		if (ContextUtils.getParameter("id") != null) {
 			Key keyPerson = KeyFactory.createKey("Person", Long.parseLong(ContextUtils.getParameter("id")));
 			person.setKey(keyPerson);
 			personDAO.save(person);
 		} else {
-			person.setAccount(KeyFactory.createKey("Account", account.getGmail()));
 			person = personDAO.save(person);
 			account.getPersons().add(person.getKey());
 			accountDAO.save(account);
 		}
 		
-		fillListOfPerson();
+		prepare();
 		
 		person = new Person();
 		
@@ -79,7 +74,7 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 			person = personDAO.findByKey(KeyFactory.createKey("Person", id));
 		}
 		
-		fillListOfPerson();
+		prepare();
 		
 		return SUCCESS;
 	}
@@ -90,20 +85,25 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 		} catch (Exception e) {}
 		
 		if (id == null) {
-			fillListOfPerson(); 
+			prepare(); 
 			return ERROR;
 		}
 		
 		Key keyPerson = KeyFactory.createKey("Person", id);
 		personDAO.delete(keyPerson);
 		
-		fillListOfPerson();
+		prepare();
 		
 		return SUCCESS;
 	}
 	
-	private void fillListOfPerson(){
-		listOfPerson = personDAO.findAll();
+	@Override
+	public void prepare() throws Exception {
+		if (account == null) {
+			accountDAO.save(new Account(user.getEmail()));
+			account = accountDAO.findByGmail(user.getEmail());
+		}
+		listOfPerson = personDAO.findAllByAccount(account);
 	}
 
 	public List<Person> getListOfPerson() {
@@ -121,5 +121,6 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person> {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+
 
 }

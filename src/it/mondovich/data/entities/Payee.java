@@ -1,21 +1,15 @@
 package it.mondovich.data.entities;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Unique;
 
 import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
-@Unique(name="IX_NAME", members={"name", "account"})
-public class BankAccount {
+public class Payee {
 	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -25,13 +19,7 @@ public class BankAccount {
 	private Key account;
 	
 	@Persistent
-	private Set<Key> persons = new HashSet<Key>();
-	
-	@Persistent
 	private String name;
-	
-	@Persistent
-	private BigDecimal initialValue;
 
 	public Key getKey() {
 		return key;
@@ -40,21 +28,13 @@ public class BankAccount {
 	public void setKey(Key key) {
 		this.key = key;
 	}
-	
+
 	public Key getAccount() {
 		return account;
 	}
 
 	public void setAccount(Key account) {
 		this.account = account;
-	}
-
-	public Set<Key> getPerson() {
-		return persons;
-	}
-
-	public void setPerson(Set<Key> person) {
-		this.persons = person;
 	}
 
 	public String getName() {
@@ -65,12 +45,5 @@ public class BankAccount {
 		this.name = name;
 	}
 
-	public BigDecimal getInitialValue() {
-		return initialValue;
-	}
-
-	public void setInitialValue(BigDecimal initialValue) {
-		this.initialValue = initialValue;
-	}
 
 }

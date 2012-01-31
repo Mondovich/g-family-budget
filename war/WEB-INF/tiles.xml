@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	
+	<definition name="baseLayout" template="/html/baseLayout.jsp">
+		<put-attribute name="title"  value="GFamilyBudget"/>
+		<put-attribute name="header" value="/html/header.jsp"/>
+		<put-attribute name="topmenu"   value="/html/topmenu.jsp"/>
+		<put-attribute name="body"   value="/html/body.jsp"/>
+		<put-attribute name="footer"   value="/html/footer.jsp"/>
+	</definition>
+	
+	<definition name="ajaxLayout" template="/html/ajaxLayout.jsp">
+		<put-attribute name="header" value="/html/header.jsp"/>
+		<put-attribute name="body"   value="/html/body.jsp"/>
+		<put-attribute name="footer"   value="/html/footer.jsp"/>
+	</definition>
+  
+	<definition name="home" extends="baseLayout">
+		<put-attribute name="body"   value="/html/index.jsp"/>      
+	</definition>
+	
+	<definition name="tiles.payee.edit" extends="ajaxLayout">
+		<put-attribute name="body" value="/html/edit_payee.jsp" />
+	</definition>
+  
+	<definition name="tiles.family.view" extends="baseLayout">
+		<put-attribute name="body" value="/html/family/index.jsp" />
+	</definition>
+	
+	<definition name="tiles.family.edit" extends="ajaxLayout">
+		<put-attribute name="body" value="/html/family/edit.jsp" />
+	</definition>
+	
+	<definition name="tiles.bankaccount.view" extends="baseLayout">
+		<put-attribute name="body" value="/html/bankaccount/index.jsp" />
+	</definition>
+	
+	<definition name="tiles.bankaccount.edit" extends="ajaxLayout">
+		<put-attribute name="body" value="/html/bankaccount/edit.jsp" />
+	</definition>
+	
+	<definition name="tiles.transaction.view" extends="ajaxLayout">
+		<put-attribute name="body" value="/html/bankaccount/transaction/index.jsp" />
+	</definition>
+	
+	<definition name="tiles.transaction.edit" extends="ajaxLayout">
+		<put-attribute name="body" value="/html/bankaccount/transaction/edit.jsp" />
+	</definition>
+	
+	<definition name="tiles.report.view" extends="baseLayout">
+		<put-attribute name="body" value="/html/report/index.jsp" />
+	</definition>
+  
+</tiles-definitions>

@@ -18,7 +18,13 @@ public class Account {
 	private String gmail;
 	
 	@Persistent
+	private Set<Key> bankaccounts = new HashSet<Key>();
+	
+	@Persistent
 	private Set<Key> persons = new HashSet<Key>();
+	
+	@Persistent
+	private Set<Key> payees = new HashSet<Key>();
 	
 	public Account() {
 		super();
@@ -37,12 +43,28 @@ public class Account {
 		this.gmail = gmail;
 	}
 
+	public Set<Key> getBankaccounts() {
+		return bankaccounts;
+	}
+
+	public void setBankaccounts(Set<Key> bankaccounts) {
+		this.bankaccounts = bankaccounts;
+	}
+
 	public Set<Key> getPersons() {
 		return persons;
 	}
 
 	public void setPersons(Set<Key> persons) {
 		this.persons = persons;
+	}
+
+	public Set<Key> getPayees() {
+		return payees;
+	}
+
+	public void setPayees(Set<Key> payees) {
+		this.payees = payees;
 	}
 
 }

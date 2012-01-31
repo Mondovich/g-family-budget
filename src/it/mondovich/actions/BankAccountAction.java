@@ -6,6 +6,7 @@ import it.mondovich.data.dao.BankAccountDAO;
 import it.mondovich.data.dao.BankAccountDAOImpl;
 import it.mondovich.data.dao.PersonDAO;
 import it.mondovich.data.dao.PersonDAOImpl;
+import it.mondovich.data.entities.Account;
 import it.mondovich.data.entities.BankAccount;
 import it.mondovich.data.entities.Person;
 import it.mondovich.util.ContextUtils;
@@ -39,6 +40,7 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 	 */
 	private static final long serialVersionUID = 1L;
 	private BankAccount bankAccount = new BankAccount();
+	private Account account = null;
 	private List<BankAccount> listOfBankAccount;
 	private List<Person> listOfPersons;
 	private List<Person> listOfBankAccountOwner;
@@ -72,9 +74,11 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 
 
 	public String newBankAccount() throws Exception {
+		bankAccount.setAccount(KeyFactory.createKey("Account", account.getGmail()));
 		if (ContextUtils.getParameter("id") != null) {
 			Key keyBankAccount = KeyFactory.createKey("BankAccount", ContextUtils.getLongParameter("id"));
 			bankAccount.setKey(keyBankAccount);
+			
 			bankAccount.getPerson().clear();
 			for (Long ownersId : owners) {
 				bankAccount.getPerson().add(KeyFactory.createKey("Person", ownersId));
@@ -200,8 +204,9 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 
 	@Override
 	public void prepare() throws Exception {
-		listOfBankAccount = bankAccountDAO.findAll();
-		listOfPersons = personDAO.findAll();
+		account = accountDAO.findByGmail(user.getEmail());
+		listOfBankAccount = bankAccountDAO.findAllByAccount(account);
+		listOfPersons = personDAO.findAllByAccount(account);
 		listOfBankAccountOwner = new ArrayList<Person>();
 	}
 
