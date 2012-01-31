@@ -13,7 +13,7 @@
 		<a href="/bankaccount/">Bank Account</a>
 	</div>
 	<div id="div_reports" class="button">	
-		<a href="/reports">Reports</a>
+		<a href="/report/">Reports</a>
 	</div>
 	<div class="button float_r">
 		<a href="<%= userService.createLogoutURL("/home") %>">Sign Out</a>
