@@ -21,6 +21,9 @@ public class Transaction {
 	private Key key;
 	
 	@Persistent
+	private Key bankAccount;
+	
+	@Persistent
 	private TransactionType transactionType;
 	
 	@Persistent
@@ -44,6 +47,14 @@ public class Transaction {
 
 	public void setKey(Key key) {
 		this.key = key;
+	}
+
+	public Key getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(Key bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 
 	public TransactionType getTransactionType() {

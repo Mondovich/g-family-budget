@@ -2,10 +2,9 @@
 
 <div id="editWindow">Loading please wait...</div>
 
-<div id="addPersonDiv" class="buttonwrapper float_r v_margin">
-	<button id="addPerson" class="clickable"><span>Add</span></button>
-</div>
 <div id="header">
+	<div id="family" class="title ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">Family</div>
+	<button id="addPerson" class="right_btn clickable"><span>Add</span></button>
 	<table id="family">
 		<tr>
 			<th colspan="2">Family</th>

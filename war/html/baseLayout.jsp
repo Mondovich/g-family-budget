@@ -10,14 +10,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<!-- <sj:head jqueryui="true" jquerytheme="trontastic" defaultIndicator="waitIndicator"  />  -->
-	
-	
 	<link rel="stylesheet" href="/css/smoothness/jquery-ui-1.8.16.custom.css">
-	<link rel="stylesheet" href="/css/trontastic/jquery-ui-1.8.17.custom.css">
+	<!-- <link rel="stylesheet" href="/css/trontastic/jquery-ui-1.8.17.custom.css"> -->
 	<link rel="stylesheet" href="/css/main.css">
 	
-	<!--  <script src="http://code.jquery.com/jquery-latest.js"></script>  --> 
+	<!-- <script src="http://code.jquery.com/jquery-latest.js"></script>  --> 
 	<script src="/js/jquery-1.7.1.js"></script>
 	<script src="/js/jquery-ui-1.8.17.custom.min.js"></script>
 	<script src="/js/jquery.maskMoney.js"></script>

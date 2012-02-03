@@ -1,0 +1,42 @@
+#content {
+	position: relative;
+	top: 30px;
+	padding: 10px;
+}
+
+.v_margin {
+	margin: 5px 0px;
+}
+
+.actions {
+	display: none;
+	position: absolute;
+}
+
+.buttonwrapper {
+	float: left;
+	padding: 0 0 0 2px;
+	vertical-align: baseline;
+	text-align: -webkit-auto;
+}
+
+.button {
+	float: left;
+	height: 30px;
+	padding: 0 10px 0 10px;
+	vertical-align: baseline;
+	text-align: -webkit-auto;
+}
+
+.float {
+	float: left;
+}
+
+.float_r {
+	float: right;
+}
+
+.flatInput {
+	background: white;
+	border: 0px;
+}

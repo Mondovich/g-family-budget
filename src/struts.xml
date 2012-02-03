@@ -13,10 +13,10 @@
 			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 		
-		<action name="">
+		<action name="*" class="it.mondovich.actions.HomeAction">
 			<result type="tiles">home</result>
 		</action>
-		<action name="home">
+		<action name="home" class="it.mondovich.actions.HomeAction">
 			<result type="tiles">home</result>
 		</action>
 		<action name="login">

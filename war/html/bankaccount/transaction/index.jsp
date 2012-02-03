@@ -1,14 +1,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-<img id="waiting" style="display: none;" class="imgWaitAnim" src="/images/loader_anim.gif">
-
 <div id="transactions">
-	<div id="content">
+	<div class="title ui-widget-header ui-corner-all">
+		Transactions
+	</div>
+	<div class="body ui-corner-all">
 		<table id="bankaccountdetails">
-			<tr>
-				<th colspan="8"><s:property value="%{bankAccount.name}" /></th>
-			</tr>
 			<tr>
 				<th>Date</th>
 				<th>Payee</th>
@@ -20,9 +18,20 @@
 				<th>Note</th>
 			</tr>
 		</table>
-		<a id="newTransaction" class="ovalbutton clickable"><span>Add</span></a>
-		
+		<s:iterator value="listOfTransaction">
+			<div class="item clickable ui-corner-all" id='<s:property value="%{key.id}" />'>
+				<s:property value="name" />
+				<div class="float_r money">
+					&euro;&nbsp;<s:property value="initialValue" />
+				</div>
+			</div>
+		</s:iterator>
 	</div>
+
+
+	<a id="newTransaction" class="ovalbutton clickable"><span>Add</span></a>
+	
+</div>
 	
 	<div id="editTransaction"></div>
 	<script type="text/javascript">
@@ -61,5 +70,4 @@
 			);
 	       });
 	</script>
-</div>
 

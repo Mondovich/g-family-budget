@@ -1,0 +1,69 @@
+div.shadow {
+	display: block;
+	float: left;
+	background-color: lightgrey;
+	border: 1px groove #800000;
+	z-index: -1;
+	opacity: 0.3;
+	position: absolute;
+}
+
+div.shadow.left {
+	width: 200px;
+}
+
+div.shadow.main {
+	left: 220px;
+}
+
+div.body {
+	float: left;
+	width: 100%;
+	padding: 5px 0px;
+	line-height: 10px;
+	background: #F9F9F9;
+	margin: 5px 0px;
+	border-top: solid 2px grey;
+	border-left: solid 2px grey;
+	border-bottom: solid 1px grey;
+	border-right: solid 1px grey;
+}
+
+div.left_menu {
+	display: block;
+	float: left;
+	width: 190px;
+	padding: 5px;
+	line-height: 29px;
+}
+
+div.main_content {
+	display: block;
+	float: left;
+	padding: 5px;
+	line-height: 29px;
+	position: absolute;
+	left: 220px;
+}
+
+div.title {
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+}
+
+div.item {
+	width: 177px;
+	height: 20px;
+	line-height: 20px;
+	margin: 0px 5px;
+	padding: 1px;
+	text-align: left;
+	float: left;
+}
+
+button.right_btn {
+	float: right;
+}
