@@ -8,7 +8,7 @@
 <div id="header">
 	<table id="bankaccount">
 		<tr>
-			<th colspan="3">Bank Accounts</th>
+			<th colspan="3"><s:text name="title.bankaccount" /></th>
 		</tr>
 		<tr>
 			<th>Account name</th>

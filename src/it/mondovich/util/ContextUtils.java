@@ -2,6 +2,7 @@ package it.mondovich.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -17,7 +18,7 @@ public class ContextUtils {
 	
 	public static Long getLongParameter(String param) {
 		String paramString = getParameter(param);
-		if (paramString == null) return null;
+		if (StringUtils.isBlank(paramString)) return null;
 		return Long.parseLong(paramString);
 	}
 

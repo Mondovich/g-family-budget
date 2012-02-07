@@ -17,7 +17,7 @@
 			<result type="tiles">home</result>
 		</action>
 		<action name="home" class="it.mondovich.actions.HomeAction">
-			<result type="tiles">home</result>
+			<result type="tiles">tiles.home</result>
 		</action>
 		<action name="login">
 			<result>/_ah/login</result>
@@ -41,12 +41,16 @@
 			<result type="tiles" name="error">tiles.family.view</result>
 		</action>
 		
+		<action name="list" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.family.list</result>
+		</action>
+		
 		<action name="edit" method="editPerson" class="it.mondovich.actions.FamilyAction">
 			<result type="tiles">tiles.family.edit</result>
 		</action>
 		
 		<action name="save" method="newPerson" class="it.mondovich.actions.FamilyAction">
-			<result type="tiles">tiles.family.view</result>
+			<result type="tiles">tiles.empty</result>
 		</action>
 		
 		<action name="delete" method="deletePerson" class="it.mondovich.actions.FamilyAction">

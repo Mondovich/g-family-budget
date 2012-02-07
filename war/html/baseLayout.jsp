@@ -15,12 +15,13 @@
 	<link rel="stylesheet" href="/css/main.css">
 	
 	<!-- <script src="http://code.jquery.com/jquery-latest.js"></script>  --> 
-	<script src="/js/jquery-1.7.1.js"></script>
-	<script src="/js/jquery-ui-1.8.17.custom.min.js"></script>
-	<script src="/js/jquery.maskMoney.js"></script>
-	<script src="/js/jquery.ba-bbq.min.js"></script>
-	<script src="/js/jquery.hoverIntent.js"></script>
-	<script src="/js/jquery.contextmenu.r2.packed.js"></script>
+	<script src="/js/jquery/jquery-1.7.1.js"></script>
+	<script src="/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
+	<script src="/js/jquery/jquery.maskMoney.js"></script>
+	<script src="/js/jquery/jquery.ba-bbq.min.js"></script>
+	<script src="/js/jquery/jquery.hoverIntent.js"></script>
+	<script src="/js/jquery/jquery.contextmenu.r2.packed.js"></script>
+	<!-- <script src="/js/javascript.js"></script> -->
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 <body>

@@ -1,24 +1,74 @@
+div::-webkit-scrollbar {
+    width: 5px;
+}
+
+div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 2px;
+}
+
+div::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+div#content {
+	position: absolute;
+	top: 40px;
+	left: 10px;
+	right: 10px;
+	bottom: 10px;
+	overflow: hidden;
+}
+
 div.shadow {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
 	display: block;
-	float: left;
 	background-color: lightgrey;
 	border: 1px groove #800000;
 	z-index: -1;
 	opacity: 0.3;
-	position: absolute;
 }
 
 div.shadow.left {
-	width: 200px;
+	width: 210px;
 }
 
 div.shadow.main {
 	left: 220px;
+	right: 0px;
+}
+
+div.left_menu {
+	padding: 0;
+	margin: 0;
+	position: absolute;    
+	top: 5px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	width: 210px;    
+	line-height: 29px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+div.title {
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+}
+
+div .left_menu .title {
+	width: 200px;
 }
 
 div.body {
 	float: left;
-	width: 100%;
 	padding: 5px 0px;
 	line-height: 10px;
 	background: #F9F9F9;
@@ -27,36 +77,52 @@ div.body {
 	border-left: solid 2px grey;
 	border-bottom: solid 1px grey;
 	border-right: solid 1px grey;
+	overflow: auto;
 }
 
-div.left_menu {
-	display: block;
-	float: left;
-	width: 190px;
-	padding: 5px;
-	line-height: 29px;
+div .left_menu .body {
+	width: 198px;
+}
+
+div.body.last_item {
 }
 
 div.main_content {
+	position: absolute;
+	top: 0px;
+	left: 220px;
+	right: 0px;
+	bottom: 0px;
 	display: block;
 	float: left;
-	padding: 5px;
 	line-height: 29px;
-	position: absolute;
-	left: 220px;
 }
 
-div.title {
-	width: 100%;
-	height: 30px;
-	text-align: center;
-	vertical-align: middle;
-	float: left;
+div .main_content .title {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+}
+
+div .main_content .body {
+	position: absolute;
+	top: 37px;
+	left: 5px;
+	right: 5px;
+	bottom: 27px;
+}
+
+div.bottom_buttons {
+	position: absolute;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
 }
 
 div.item {
 	width: 177px;
-	height: 20px;
 	line-height: 20px;
 	margin: 0px 5px;
 	padding: 1px;
@@ -64,6 +130,15 @@ div.item {
 	float: left;
 }
 
-button.right_btn {
-	float: right;
+div .left_menu .loading {
+	height: 40px;
+	text-align: center;
+	background: center white url('/images/loader_anim.gif') no-repeat;
+	line-height: 10px;
+}
+
+div#dialog.loading {
+	text-align: center;
+	background: center white url('/images/loader_anim.gif') no-repeat;
+	line-height: 10px;
 }

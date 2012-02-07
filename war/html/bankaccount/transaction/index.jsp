@@ -3,19 +3,19 @@
 
 <div id="transactions">
 	<div class="title ui-widget-header ui-corner-all">
-		Transactions
+		<s:text name="title.transactions" />
 	</div>
 	<div class="body ui-corner-all">
 		<table id="bankaccountdetails">
 			<tr>
-				<th>Date</th>
-				<th>Payee</th>
-				<th>Status</th>
-				<th>Category</th>
-				<th>Withdrawal</th>
-				<th>Deposit</th>
-				<th>Balance</th>
-				<th>Note</th>
+				<th><s:text name="transaction.date" /></th>
+				<th><s:text name="transaction.payee" /></th>
+				<th><s:text name="transaction.status" /></th>
+				<th><s:text name="transaction.category" /></th>
+				<th><s:text name="transaction.withdrawal" /></th>
+				<th><s:text name="transaction.deposit" /></th>
+				<th><s:text name="transaction.balance" /></th>
+				<th><s:text name="transaction.note" /></th>
 			</tr>
 		</table>
 		<s:iterator value="listOfTransaction">
@@ -28,8 +28,9 @@
 		</s:iterator>
 	</div>
 
-
-	<a id="newTransaction" class="ovalbutton clickable"><span>Add</span></a>
+	<div class="bottom_buttons">
+		<button class="float plus">&nbsp;</button>
+	</div>
 	
 </div>
 	

@@ -1,22 +1,24 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 
 <% UserService userService = UserServiceFactory.getUserService(); %>
 <div id="topMenu">
 	<div id="div_home" class="button">
-		<a href="/home">Home</a>
+		<a href="/home"><s:text name="menu.home" /></a>
 	</div>
 	<div id="div_family" class="button">	
-		<a href="/family/">Family</a>
+		<a href="/family/"><s:text name="menu.family" /></a>
 	</div>
 	<div id="div_bankaccount" class="button">	
-		<a href="/bankaccount/">Bank Account</a>
+		<a href="/bankaccount/"><s:text name="menu.bankaccount" /></a>
 	</div>
 	<div id="div_reports" class="button">	
-		<a href="/report/">Reports</a>
+		<a href="/report/"><s:text name="menu.reports" /></a>
 	</div>
 	<div class="button float_r">
-		<a href="<%= userService.createLogoutURL("/home") %>">Sign Out</a>
+		<a href="<%= userService.createLogoutURL("/home") %>"><s:text name="menu.signout" /></a>
 	</div>
 </div>
 	

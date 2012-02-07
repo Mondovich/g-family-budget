@@ -8,7 +8,7 @@
 			$(".main_content .body").height(h-h1-51);
 		}
 		var h2 = $(".left_menu .last_item.body").position().top;
-		$(".left_menu .last_item.body").height(h-h2-11);
+		$(".left_menu .last_item.body").height(h-h2-40);
 		$(".left_menu").height(h-10);
 		
 		var w = $(window).width()-$(".shadow.main").position().left - 30;
@@ -19,24 +19,34 @@
 	}
 	
 	$(function (){
-		
 		$("button.plus").button({
 			icons: {
 				primary: 'ui-icon-circle-plus'
 			},
 	        text: false
 		});
-		$("button.minus").button({
+		$("button.edit").button({
+			create: function(event, ui) {
+				$(this).button( "option", "disabled", true );
+			},
 			icons: {
-				primary: "ui-icon-gear",
-	            secondary: "ui-icon-triangle-1-s"
+				primary: 'ui-icon-circle-check'
+			},
+	        text: false
+		});
+		$("button.minus").button({
+			create: function(event, ui) {
+				$(this).button( "option", "disabled", true );
+			},
+			icons: {
+				primary: "ui-icon-circle-minus"
 			},
 	        text: false
 		});
 		$("button").button();
 		
 		$(window).resize(function() {
-			resizeDivs();
+			//resizeDivs();
 		});
 		$(window).trigger( 'resize' );
 		
