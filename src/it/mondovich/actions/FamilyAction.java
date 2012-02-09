@@ -50,7 +50,7 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person>, 
 		return SUCCESS;
 	}
 	
-	public String newPerson() throws Exception {
+	public String save() throws Exception {
 		person.setAccount(KeyFactory.createKey("Account", account.getGmail()));
 		if (ContextUtils.getParameter("id") != null) {
 			Key keyPerson = KeyFactory.createKey("Person", Long.parseLong(ContextUtils.getParameter("id")));
@@ -68,7 +68,7 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person>, 
 		
 		return SUCCESS;
 	}
-	public String editPerson() throws Exception {
+	public String edit() throws Exception {
 		Long id = ContextUtils.getLongParameter("id");
 		if (id != null) {
 			person = personDAO.findByKey(KeyFactory.createKey("Person", id));
@@ -78,15 +78,22 @@ public class FamilyAction extends ActionSupport implements ModelDriven<Person>, 
 		
 		return SUCCESS;
 	}
-	public String deletePerson() throws Exception {
-		Long id = null;
-		try {
-			id = ContextUtils.getLongParameter("id");
-		} catch (Exception e) {}
+	public String deleteConfirm() throws Exception {
+		Long id = ContextUtils.getLongParameter("id");
+		if (id != null) {
+			person = personDAO.findByKey(KeyFactory.createKey("Person", id));
+		}
+		
+		prepare();
+		
+		return SUCCESS;
+	}
+	public String delete() throws Exception {
+		Long id = ContextUtils.getLongParameter("id");
 		
 		if (id == null) {
 			prepare(); 
-			return ERROR;
+			return INPUT;
 		}
 		
 		Key keyPerson = KeyFactory.createKey("Person", id);

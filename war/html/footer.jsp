@@ -1,23 +1,4 @@
 <script type="text/javascript">
-	function resizeDivs() {
-		var h = $(window).height() - $(".shadow").position().top - 55;
-		$(".shadow").height(h);
-		$(".main_content").height(h-8);
-		if ($(".main_content .body").position() != null) {
-			var h1 = $(".main_content .body").position().top;
-			$(".main_content .body").height(h-h1-51);
-		}
-		var h2 = $(".left_menu .last_item.body").position().top;
-		$(".left_menu .last_item.body").height(h-h2-40);
-		$(".left_menu").height(h-10);
-		
-		var w = $(window).width()-$(".shadow.main").position().left - 30;
-		$(".shadow.main").width(w);
-		$(".main_content").width(w-8);
-		$(".main_content .body").width(w-10);
-		$(".main_content .body .item").width(w-25);
-	}
-	
 	$(function (){
 		$("button.plus").button({
 			icons: {
@@ -45,11 +26,6 @@
 		});
 		$("button").button();
 		
-		$(window).resize(function() {
-			//resizeDivs();
-		});
-		$(window).trigger( 'resize' );
-		
 		$('.money').maskMoney({thousands:',', decimal:'.', allowZero: true, allowNegative: true, showSymbol: true, symbolStay: true});
         $('.money').mask();
         $("#currency").maskMoney({thousands:',', decimal:'.', allowZero: true, allowNegative: true, showSymbol: true, symbolStay: true});
@@ -63,6 +39,36 @@
 				//$(this).addClass("ui-state-active");
 			}
 		);
+		$(document).on('click', "button:enabled.dialog", function() {
+			var that = $(this);
+			var href = that.attr("href");
+			var title = that.attr("title"); 
+			var id = that.attr("item_id") || "";
+			// show a spinner or something via css
+            var dialog = $('<div id="dialog" class="loading"></div>').appendTo('body');
+            // open the dialog 
+            dialog.dialog({
+            	create: function(event, ui) {
+            		that.trigger("createActionEvent", dialog);
+            	},
+                // add a close listener to prevent adding multiple divs to the document
+                close: function(event, ui) {
+                    // remove div with all data and events
+                    dialog.remove();
+                },
+                modal: true,
+                title: title
+            });
+            // load remote content
+            dialog.load(
+            	href, 
+                {id: id}, // omit this param object to issue a GET request instead a POST request, otherwise you may provide post parameters within the object
+                function (responseText, textStatus, XMLHttpRequest) {
+                    // remove the loading class
+                    dialog.removeClass('loading');
+                }
+            );
+		});
 	});
 	
 </script>

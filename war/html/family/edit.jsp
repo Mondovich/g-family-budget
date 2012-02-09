@@ -3,8 +3,8 @@
 
 <s:form id="ajaxForm" action="save" method="post">
 	<s:push value="person">
-		<s:textfield label="First Name" name="firstName" value="%{firstName}"></s:textfield>
-		<s:textfield label="Last Name" name="lastName" value="%{lastName}"></s:textfield>
+		<s:textfield key="family.firstname" name="firstName" value="%{firstName}"></s:textfield>
+		<s:textfield key="family.lastname" name="lastName" value="%{lastName}"></s:textfield>
 		<div class="buttonwrapper">
 			<s:if test="%{key.id != null}">
 				<s:hidden name="id" value="%{key.id}"></s:hidden>

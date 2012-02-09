@@ -1,6 +1,7 @@
 package it.mondovich.data.persistence;
 
 import it.mondovich.data.PMFactory;
+import it.mondovich.exceptions.UniqueConstraintException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -90,7 +91,7 @@ public class LoggingLifecycleListener implements CreateLifecycleListener,
 				
 				Integer n = (Integer) q.executeWithArray(params);
 				if (n != null && n > 0) {
-					throw new JDOUserException("Unique constraint " + unique.name() + " violated!");
+					throw new UniqueConstraintException(unique.members());
 				}
 			} catch (IllegalArgumentException e) {
 				log.error("Error!", e);

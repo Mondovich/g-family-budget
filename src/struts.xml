@@ -4,17 +4,14 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<include file="struts-default.xml"></include>
-	<!--
-	<constant name="struts.ui.theme" value="gfbtmpl" />
-	<constant name="struts.ui.templateDir" value="template" />
-	-->
+	
 	<package name="home" namespace="/" extends="struts-default">
 		<result-types>
 			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 		
 		<action name="*" class="it.mondovich.actions.HomeAction">
-			<result type="tiles">home</result>
+			<result type="tiles">tiles.home</result>
 		</action>
 		<action name="home" class="it.mondovich.actions.HomeAction">
 			<result type="tiles">tiles.home</result>
@@ -45,17 +42,22 @@
 			<result type="tiles">tiles.family.list</result>
 		</action>
 		
-		<action name="edit" method="editPerson" class="it.mondovich.actions.FamilyAction">
+		<action name="edit" method="edit" class="it.mondovich.actions.FamilyAction">
 			<result type="tiles">tiles.family.edit</result>
 		</action>
 		
-		<action name="save" method="newPerson" class="it.mondovich.actions.FamilyAction">
-			<result type="tiles">tiles.empty</result>
+		<action name="save" method="save" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.ajax.empty</result>
+			<result type="tiles" name="input">tiles.family.edit</result>
 		</action>
 		
-		<action name="delete" method="deletePerson" class="it.mondovich.actions.FamilyAction">
-			<result type="tiles">tiles.family.view</result>
-			<result type="tiles" name="error">tiles.family.view</result>
+		<action name="deleteConfirm" method="deleteConfirm" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.family.deleteConfirm</result>
+		</action>
+		
+		<action name="delete" method="delete" class="it.mondovich.actions.FamilyAction">
+			<result type="tiles">tiles.ajax.empty</result>
+			<result type="tiles" name="input">tiles.family.deleteConfirm</result>
 		</action>
 	</package>
 	
@@ -69,22 +71,30 @@
 			<result type="tiles" name="error">tiles.bankaccount.view</result>
 		</action>
 		
-		<action name="newBankAccount" method="newBankAccount" class="it.mondovich.actions.BankAccountAction">
-			<result type="tiles">tiles.bankaccount.view</result>
-			<result type="tiles" name="input">tiles.bankaccount.view</result>
+		<action name="list" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.bankaccount.list</result>
+		</action>
+		
+		<action name="edit" method="edit" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.bankaccount.edit</result>
+		</action>
+		
+		<action name="save" method="save" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.ajax.empty</result>
+			<result type="tiles" name="input">tiles.bankaccount.edit</result>
 		</action>
 		
 		<action name="add" method="addBankAccountOwner" class="it.mondovich.actions.BankAccountAction">
 			<result type="tiles">tiles.bankaccount.view</result>
 		</action>
 		
-		<action name="edit" method="editBankAccount" class="it.mondovich.actions.BankAccountAction">
-			<result type="tiles">tiles.bankaccount.edit</result>
+		<action name="deleteConfirm" method="edit" class="it.mondovich.actions.BankAccountAction">
+			<result type="tiles">tiles.bankaccount.deleteConfirm</result>
 		</action>
 		
-		<action name="delete" method="deleteBankAccount" class="it.mondovich.actions.BankAccountAction">
+		<action name="delete" method="delete" class="it.mondovich.actions.BankAccountAction">
 			<result type="tiles">tiles.bankaccount.view</result>
-			<result type="tiles" name="error">tiles.bankaccount.view</result>
+			<result type="tiles" name="input">tiles.bankaccount.deleteConfirm</result>
 		</action>
 	</package>
 	

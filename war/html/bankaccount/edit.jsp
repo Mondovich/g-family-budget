@@ -2,16 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<s:form id="addBankAccountForm" action="newBankAccount" method="post">
+<s:form id="ajaxForm" action="save" method="post">
 	<s:push value="bankAccount">
-		<s:textfield label="Account Name" name="name" value="%{bankAccount.name}"></s:textfield>
-		<s:textfield label="Initial Value" name="initialValue" value="%{bankAccount.initialValue}"></s:textfield>
-		<s:select label="Owners" name="owners" multiple="true" listKey="key.id" listValue="completeName" list="listOfPersons" value="%{bankaccount.owner}"></s:select>
+		<s:textfield key="bankaccount.name" name="name" value="%{bankAccount.name}"></s:textfield>
+		<s:textfield key="bankaccount.initialvalue" name="initialValue" value="%{bankAccount.initialValue}"></s:textfield>
+	 	<s:select key="bankaccount.owners" name="owners" listKey="key.id" listValue="completeName" list="listOfPersons" value="owners" multiple="true"></s:select>
 		<div class="buttonwrapper">
 			<s:if test="%{key.id != null}">
 				<s:hidden name="id" value="%{key.id}"></s:hidden>
 			</s:if>
-			<s:submit cssClass="ovalbutton clickable" value="Save"></s:submit>
 		</div>
 	</s:push>
 </s:form>
+
+<s:actionerror/>

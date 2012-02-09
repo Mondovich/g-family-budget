@@ -1,22 +1,20 @@
 package it.mondovich.actions;
 
-import it.mondovich.data.dao.AccountDAO;
-import it.mondovich.data.dao.AccountDAOImpl;
 import it.mondovich.data.dao.BankAccountDAO;
 import it.mondovich.data.dao.BankAccountDAOImpl;
 import it.mondovich.data.dao.PersonDAO;
 import it.mondovich.data.dao.PersonDAOImpl;
-import it.mondovich.data.entities.Account;
 import it.mondovich.data.entities.BankAccount;
 import it.mondovich.data.entities.Person;
+import it.mondovich.exceptions.UniqueConstraintException;
 import it.mondovich.util.ContextUtils;
+import it.mondovich.util.Helper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.JDOUserException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -24,9 +22,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -40,58 +35,38 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 	 */
 	private static final long serialVersionUID = 1L;
 	private BankAccount bankAccount = new BankAccount();
-	private Account account = null;
 	private List<BankAccount> listOfBankAccount;
 	private List<Person> listOfPersons;
 	private List<Person> listOfBankAccountOwner;
 	private BankAccountDAO bankAccountDAO = new BankAccountDAOImpl();
-	private AccountDAO accountDAO = new AccountDAOImpl();
 	private PersonDAO personDAO = new PersonDAOImpl();
-	private User user = UserServiceFactory.getUserService().getCurrentUser();
-	private List<Long> owners = new ArrayList<Long>();
 	
 	@Override
 	public BankAccount getModel() {
 		return bankAccount;
 	}
 	
-
 	@Override
 	public String execute() throws Exception {
 		return SUCCESS;
 	}
 	
-	@Override
-	public void validate() {
-		String action = ActionContext.getContext().getName();
-		if (action.equals("newBankAccount")) {
-			if (StringUtils.isBlank(bankAccount.getName())) {
-				addActionError("Name is required");
-				addFieldError("name", "Name is required");
-			}
+	public String save() throws Exception {
+		bankAccount.setAccount(Helper.getAccountKey());
+		if (bankAccount.getPerson().isEmpty()) {
+			addFieldError("owners", getText("bankaccount.validation.owners"));
+			return INPUT;
 		}
-	}
-
-
-	public String newBankAccount() throws Exception {
-		bankAccount.setAccount(KeyFactory.createKey("Account", account.getGmail()));
 		if (ContextUtils.getParameter("id") != null) {
-			Key keyBankAccount = KeyFactory.createKey("BankAccount", ContextUtils.getLongParameter("id"));
-			bankAccount.setKey(keyBankAccount);
-			
-			bankAccount.getPerson().clear();
-			for (Long ownersId : owners) {
-				bankAccount.getPerson().add(KeyFactory.createKey("Person", ownersId));
-			}
 			bankAccountDAO.save(bankAccount);
 		} else {
-			for (Long ownersId : owners) {
-				bankAccount.getPerson().add(KeyFactory.createKey("Person", ownersId));
-			}
 			try {
 				bankAccount = bankAccountDAO.save(bankAccount);
-			} catch (JDOUserException e) {
-				addActionError(e.getMessage());
+			} catch (UniqueConstraintException e) {
+				for (String field : e.getFields()) {
+					addFieldError(field, getText("bankaccount.validation.unique", new String[] {field}));
+				}
+				return INPUT;
 			}
 		}
 		
@@ -102,7 +77,7 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 		return SUCCESS;
 	}
 	
-	public String editBankAccount() throws Exception {
+	public String edit() throws Exception {
 		Long id = ContextUtils.getLongParameter("id");
 		if (id != null) {
 			bankAccount = bankAccountDAO.findByKey(KeyFactory.createKey("BankAccount", id));
@@ -113,7 +88,7 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 		return SUCCESS;
 	}
 	
-	public String deleteBankAccount() throws Exception {
+	public String delete() throws Exception {
 		String forward = SUCCESS;
 		Long id = null;
 		try {
@@ -121,15 +96,15 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 		} catch (Exception e) {}
 		
 		if (id == null) {
-			addActionError("Id is null!");
-			forward = ERROR;
+			addActionError(getText("bankaccount.validation.id.null"));
+			forward = INPUT;
 		} else {
 			Key keyBankAccount = KeyFactory.createKey("BankAccount", id);
 			try {
 				bankAccountDAO.delete(keyBankAccount);
 			} catch (JDOObjectNotFoundException e) {
-				addActionError("Bank Account with id = 3 doesn't exists");
-				forward = ERROR;
+				addActionError(getText("bankaccount.validation.id", id.toString()));
+				forward = INPUT;
 			}
 		}
 		
@@ -204,22 +179,9 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 
 	@Override
 	public void prepare() throws Exception {
-		account = accountDAO.findByGmail(user.getEmail());
-		listOfBankAccount = bankAccountDAO.findAllByAccount(account);
-		listOfPersons = personDAO.findAllByAccount(account);
+		listOfBankAccount = bankAccountDAO.findAllByAccount(Helper.getAccount());
+		listOfPersons = personDAO.findAllByAccount(Helper.getAccount());
 		listOfBankAccountOwner = new ArrayList<Person>();
 	}
-
-
-	public List<Long> getOwners() {
-		return owners;
-	}
-
-
-	public void setOwners(List<Long> owners) {
-		this.owners = owners;
-	}
-	
-	
 	
 }
