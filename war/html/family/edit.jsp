@@ -3,7 +3,7 @@
 
 <s:form id="ajaxForm" action="save" method="post">
 	<s:push value="person">
-		<s:textfield key="family.firstname" name="firstName" value="%{firstName}"></s:textfield>
+		<s:textfield id="firstName" key="family.firstname" name="firstName" value="%{firstName}"></s:textfield>
 		<s:textfield key="family.lastname" name="lastName" value="%{lastName}"></s:textfield>
 		<div class="buttonwrapper">
 			<s:if test="%{key.id != null}">
@@ -12,3 +12,11 @@
 		</div>
 	</s:push>
 </s:form>
+
+<script type="text/javascript">
+
+	$(function(){
+		$('#firstName').focus();
+	})
+
+</script>

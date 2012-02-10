@@ -93,7 +93,7 @@
 		</action>
 		
 		<action name="delete" method="delete" class="it.mondovich.actions.BankAccountAction">
-			<result type="tiles">tiles.bankaccount.view</result>
+			<result type="tiles">tiles.ajax.empty</result>
 			<result type="tiles" name="input">tiles.bankaccount.deleteConfirm</result>
 		</action>
 	</package>

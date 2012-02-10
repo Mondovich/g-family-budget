@@ -90,10 +90,7 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 	
 	public String delete() throws Exception {
 		String forward = SUCCESS;
-		Long id = null;
-		try {
-			id = ContextUtils.getLongParameter("id");
-		} catch (Exception e) {}
+		Long id = ContextUtils.getLongParameter("id");
 		
 		if (id == null) {
 			addActionError(getText("bankaccount.validation.id.null"));
@@ -156,27 +153,6 @@ public class BankAccountAction extends ActionSupport implements ModelDriven<Bank
 		bankAccount.getPerson().add(KeyFactory.createKey("Person", Long.parseLong(id)));
 	}
 	
-	public String addBankAccountOwner() throws Exception {
-		String forward = SUCCESS;
-		
-		Long id = null;
-		try {
-			id = ContextUtils.getLongParameter("id");
-		} catch (Exception e) {}
-		if (id == null) {
-			addActionError("Id is null!");
-			forward = ERROR;
-		} else {
-			Key keyBankAccountOwner = KeyFactory.createKey("Person", id);
-			listOfBankAccountOwner.add(personDAO.findByKey(keyBankAccountOwner));
-		}
-		
-		prepare();
-		
-		return forward;
-	}
-
-
 	@Override
 	public void prepare() throws Exception {
 		listOfBankAccount = bankAccountDAO.findAllByAccount(Helper.getAccount());

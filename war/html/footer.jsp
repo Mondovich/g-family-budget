@@ -1,3 +1,5 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <script type="text/javascript">
 	$(function (){
 		$("button.plus").button({
@@ -26,10 +28,7 @@
 		});
 		$("button").button();
 		
-		$('.money').maskMoney({thousands:',', decimal:'.', allowZero: true, allowNegative: true, showSymbol: true, symbolStay: true});
-        $('.money').mask();
-        $("#currency").maskMoney({thousands:',', decimal:'.', allowZero: true, allowNegative: true, showSymbol: true, symbolStay: true});
-		$(".clickable").hover(
+        $(".clickable").hover(
 			function (event) {
 				//$(this).removeClass("ui-state-active");
 			  	$(this).addClass("ui-state-hover");
@@ -44,6 +43,27 @@
 			var href = that.attr("href");
 			var title = that.attr("title"); 
 			var id = that.attr("item_id") || "";
+			var buttons = eval(that.attr("buttons") || "");
+			
+			//var buttonsNames = eval(<s:text name='buttons' />);
+			var buttonsNames = eval({
+				add: '<s:text name='button.add' />', 
+				edit: '<s:text name='button.edit' />',  
+				delete: '<s:text name='button.delete' />',
+				cancel: '<s:text name='button.cancel' />'
+			});
+			var dialog_buttons = {};
+			for(i in buttons) {
+				if (buttons[i] == 'cancel') {
+					dialog_buttons[buttonsNames[buttons[i]]] = function() {
+						dialog.dialog("close");
+					}
+				} else {
+					var action = buttons[i];
+					dialog_buttons[buttonsNames[buttons[i]]] = function() { that.trigger("buttonClickActionEvent", [action, dialog]); };
+				}
+			}
+			
 			// show a spinner or something via css
             var dialog = $('<div id="dialog" class="loading"></div>').appendTo('body');
             // open the dialog 
@@ -51,7 +71,8 @@
             	create: function(event, ui) {
             		that.trigger("createActionEvent", dialog);
             	},
-                // add a close listener to prevent adding multiple divs to the document
+            	buttons: dialog_buttons,
+            	// add a close listener to prevent adding multiple divs to the document
                 close: function(event, ui) {
                     // remove div with all data and events
                     dialog.remove();
@@ -69,6 +90,7 @@
                 }
             );
 		});
+		
 	});
 	
 </script>

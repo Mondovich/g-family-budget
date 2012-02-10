@@ -4,8 +4,8 @@
 
 <s:form id="ajaxForm" action="save" method="post">
 	<s:push value="bankAccount">
-		<s:textfield key="bankaccount.name" name="name" value="%{bankAccount.name}"></s:textfield>
-		<s:textfield key="bankaccount.initialvalue" name="initialValue" value="%{bankAccount.initialValue}"></s:textfield>
+		<s:textfield id="name" key="bankaccount.name" name="name" value="%{bankAccount.name}"></s:textfield>
+		<s:textfield id="initVal" cssClass="money" key="bankaccount.initialvalue" name="initialValue" value="%{bankAccount.initialValue}"></s:textfield>
 	 	<s:select key="bankaccount.owners" name="owners" listKey="key.id" listValue="completeName" list="listOfPersons" value="owners" multiple="true"></s:select>
 		<div class="buttonwrapper">
 			<s:if test="%{key.id != null}">
@@ -16,3 +16,14 @@
 </s:form>
 
 <s:actionerror/>
+
+<script type="text/javascript">
+
+	$(function(){
+		$('.money').maskMoney({thousands:',', decimal:'.', allowZero: true, allowNegative: true, showSymbol: true, symbolStay: false, symbol: '\u20ac '});
+		$('.money').mask();
+		$('#initVal').focus();
+		$('#name').focus();
+	})
+
+</script>
