@@ -103,16 +103,20 @@
 			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 		
-		<action name="" method="listTransactions" class="it.mondovich.actions.TransactionAction">
+		<action name="" class="it.mondovich.actions.TransactionAction">
 			<result type="tiles">tiles.transaction.view</result>
 		</action>
 		
-		<action name="edit" method="editTransaction" class="it.mondovich.actions.TransactionAction">
+		<action name="list" method="list" class="it.mondovich.actions.TransactionAction">
+			<result type="tiles">tiles.transaction.list</result>
+		</action>
+		
+		<action name="edit" method="edit" class="it.mondovich.actions.TransactionAction">
 			<result type="tiles">tiles.transaction.edit</result>
 		</action>
 		
-		<action name="new" method="newTransaction" class="it.mondovich.actions.TransactionAction">
-			<result type="tiles">tiles.transaction.edit</result>
+		<action name="save" method="save" class="it.mondovich.actions.TransactionAction">
+			<result type="tiles">tiles.ajax.empty</result>
 			<result type="tiles" name="input">tiles.transaction.edit</result>
 		</action>
 	</package>

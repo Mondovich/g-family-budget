@@ -42,11 +42,14 @@ public class TransactionAction extends ActionSupport implements ModelDriven<Tran
 		account = accountDAO.findByGmail(user.getEmail());
 	}
 
-	public String listTransactions() {
+	public String list() throws Exception {
+		
+		prepare();
+		
 		return SUCCESS;
 	}
 	
-	public String editTransaction() throws Exception {
+	public String edit() throws Exception {
 		Long id = ContextUtils.getLongParameter("id");
 		if (id != null) {
 			transaction = transactionDAO.findByKey(KeyFactory.createKey("Transaction", id));
@@ -57,7 +60,10 @@ public class TransactionAction extends ActionSupport implements ModelDriven<Tran
 		return SUCCESS;
 	}
 	
-	public String newTransaction() throws Exception {
+	public String save() throws Exception {
+		
+		prepare();
+		
 		return SUCCESS;
 	}
 	

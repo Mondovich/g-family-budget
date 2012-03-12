@@ -1,7 +1,8 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <script type="text/javascript">
-	$(function (){
+
+	function bindButtons(element) {
 		$("button.plus").button({
 			icons: {
 				primary: 'ui-icon-circle-plus'
@@ -26,19 +27,16 @@
 			},
 	        text: false
 		});
-		$("button").button();
+	}
+	
+	$(function (){
+		bindButtons();
 		
-        $(".clickable").hover(
-			function (event) {
-				//$(this).removeClass("ui-state-active");
-			  	$(this).addClass("ui-state-hover");
-			},
-			function () {
-				$(this).removeClass("ui-state-hover");
-				//$(this).addClass("ui-state-active");
-			}
-		);
-		$(document).on('click', "button:enabled.dialog", function() {
+		$(document).on('mouseenter mouseleave', ".clickable", function(event) {
+			$(this).toggleClass("ui-state-hover");
+		});
+		
+        $(document).on('click', "button:enabled.dialog", function() {
 			var that = $(this);
 			var href = that.attr("href");
 			var title = that.attr("title"); 
@@ -50,7 +48,8 @@
 				add: '<s:text name='button.add' />', 
 				edit: '<s:text name='button.edit' />',  
 				delete: '<s:text name='button.delete' />',
-				cancel: '<s:text name='button.cancel' />'
+				cancel: '<s:text name='button.cancel' />',
+				select: '<s:text name='button.select' />'
 			});
 			var dialog_buttons = {};
 			for(i in buttons) {

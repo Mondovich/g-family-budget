@@ -15,7 +15,9 @@
 	</definition>
 	
 	<definition name="ajaxLayout" template="/html/ajaxLayout.jsp">
+		<put-attribute name="header" value="/html/empty.jsp"/>
 		<put-attribute name="body"   value="/html/body.jsp"/>
+		<put-attribute name="footer"   value="/html/empty.jsp"/>
 	</definition>
 	
 	<definition name="tiles.ajax.empty" template="/html/empty.jsp">
@@ -63,6 +65,10 @@
 	
 	<definition name="tiles.transaction.view" extends="ajaxLayout">
 		<put-attribute name="body" value="/html/bankaccount/transaction/index.jsp" />
+	</definition>
+	
+	<definition name="tiles.transaction.list" extends="ajaxLayout">
+		<put-attribute name="body" value="/html/bankaccount/transaction/list.jsp" />
 	</definition>
 	
 	<definition name="tiles.transaction.edit" extends="ajaxLayout">

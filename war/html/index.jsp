@@ -39,7 +39,7 @@
 	function familyDialog (e, action, dialog) {
 		var $form = $("#ajaxForm"), url = $form.attr( 'action' );
 		
-	    $.post( url, $form.serialize(),
+		$.post( url, $form.serialize(),
 	      function( data ) {
 	    	if (data.length > 0) {
 	    		$(dialog).html(data);
@@ -58,7 +58,7 @@
 	function bankAccountDialog (e, action, dialog) {
 		var $form = $("#ajaxForm"), url = $form.attr( 'action' );
 	
-	    $.post( url, $form.serialize(),
+		$.post( url, $form.serialize(),
 	      function( data ) {
 	    	if (data.length > 0) {
 	    		$(dialog).html(data);
@@ -109,6 +109,7 @@
 					that.addClass("selected");
 					$("#BankAccountEdit").button("enable");
 					$("#BankAccountDel").button("enable");
+					bindButtons();
 				}
       		});
 			
